@@ -5,10 +5,6 @@ public class PlayerController : MonoBehaviour {
 
 	float speed = .1f;
 
-	void Start () {
-		Debug.Log (transform.localPosition);
-	}
-	
 	void FixedUpdate () {
 		float h = Input.GetAxis ("Horizontal");
 		float v = Input.GetAxis ("Vertical");
