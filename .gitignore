@@ -1,0 +1,15 @@
+# OSX
+.DS_Store
+
+# Unity derived files
+*.csproj
+*.sln
+*.userprefs
+/Temp/
+/Library/
+
+# Android build output
+*.apk
+
+# WebGL build output
+/HornetBlastWebGL/
