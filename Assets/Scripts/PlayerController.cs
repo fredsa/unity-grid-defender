@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	public Transform grid;
 
-	float speed = .6f;
+	float speed = .4f;
 	float clampX;
 	float clampy;
 
