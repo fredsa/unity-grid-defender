@@ -6,20 +6,15 @@ public class CubeController : MonoBehaviour {
 	float tumble = 10f;
 
 	Rigidbody rb;
-//	Vector3 eulerAngles;
-//	Quaternion quaternion;
 
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		rb.angularVelocity = Random.insideUnitSphere * tumble;
-//		eulerAngles = new Vector3(
-//			Random.rotation
-//		quaternion = Random.rotation;
+
+		rb.velocity = new Vector3 (-4f, -4f, 0f);
 	}
 
 	void FixedUpdate() {
-//		transform.Rotate (eulerAngles);
-//		transform.localRotation = quaternion;
 	}
 	
 }
