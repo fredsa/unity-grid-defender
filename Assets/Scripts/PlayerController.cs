@@ -21,7 +21,10 @@ public class PlayerController : MonoBehaviour {
 		clampy = grid.localScale.y/2 - transform.localScale.y/2;
 	}
 
-	void FixedUpdate () {
+	void Update() {
+		if (Input.GetMouseButtonDown (0)) {
+			transform.rotation =  Quaternion.LookRotation(transform.forward, -transform.up);
+		}
 
 		Vector3 direction;
 
@@ -32,7 +35,6 @@ public class PlayerController : MonoBehaviour {
 			float distance;
 			playerPlane.Raycast (ray, out distance);
 			targetPosition = ray.GetPoint (distance);
-
 			direction = targetPosition - transform.position;
 		} else {
 			direction = new Vector3(Input.GetAxisRaw ("Horizontal"),Input.GetAxisRaw ("Vertical"), 0);

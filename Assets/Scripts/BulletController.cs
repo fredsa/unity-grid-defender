@@ -10,7 +10,7 @@ public class BulletController : MonoBehaviour {
 
 	void Start () {
 	    rb = gameObject.GetComponent<Rigidbody> ();
-		rb.velocity = new Vector3 (0, bulletSpeed, 0);
+		rb.velocity = transform.up.normalized * bulletSpeed;
 	}
 
 	void OnTriggerEnter(Collider other) {
