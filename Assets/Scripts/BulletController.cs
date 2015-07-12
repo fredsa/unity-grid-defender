@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BulletController : MonoBehaviour {
 
-	float speed = 4f;
+	float speed = 20f;
 
 	Rigidbody rb;
 
