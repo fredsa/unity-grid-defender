@@ -5,7 +5,7 @@ public class BulletController : MonoBehaviour {
 
 	public GameObject explosionPrefab;
 
-	float bulletSpeed = 20f;
+	float bulletSpeed = 60f;
 	Rigidbody rb;
 
 	void Start () {
