@@ -7,6 +7,7 @@ public class EnemySpawnController : MonoBehaviour {
 	public float speed = 1f;
 	public float delay = 0f;
 	public float rate = 1f;
+	public Color enemyColor;
 	
 	LayerMask layermask;
 	bool needSpawn = false;
@@ -29,5 +30,9 @@ public class EnemySpawnController : MonoBehaviour {
 		needSpawn = false;
 		GameObject enemyClone = Instantiate (enemyPrefab, transform.position, transform.rotation) as GameObject;
 		enemyClone.transform.parent = gameObject.transform;
+
+		enemyClone.GetComponent<Rigidbody> ().velocity = transform.right * speed;
+		enemyClone.gameObject.GetComponent<MeshRenderer> ().material.color = enemyColor;
+		
 	}
 }
