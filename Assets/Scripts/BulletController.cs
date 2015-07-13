@@ -15,15 +15,18 @@ public class BulletController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		if (other.CompareTag ("Enemy")) {
+		if (other.CompareTag ("Enemy") || other.CompareTag ("EnemyObstacle")) {
 			Color otherColor = other.gameObject.GetComponent<MeshRenderer> ().material.color;
 
 			GameObject explosion = Instantiate(explosionPrefab, other.transform.position, Quaternion.identity) as GameObject;
-			GameObject mine = Instantiate(minePrefab, other.transform.position, Quaternion.identity) as GameObject;
+
+			if (other.CompareTag ("Enemy")) {
+				GameObject mine = Instantiate(minePrefab, other.transform.position, Quaternion.identity) as GameObject;
+				mine.GetComponentInChildren<MeshRenderer>().material.color = otherColor;
+			}
 
 			explosion.GetComponentInChildren<ParticleSystem>().startColor = otherColor;
 			explosion.GetComponentInChildren<TextMesh>().color = otherColor;
-			mine.GetComponentInChildren<MeshRenderer>().material.color = otherColor;
 
 			Destroy(other.gameObject);
 			Destroy(gameObject);

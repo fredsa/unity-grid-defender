@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform grid;
 	public float fingerYOffset = 0f;
 
-	float speed = 30f;
+	float speed = 50f;
 	Vector3 targetPosition;
 	Plane playerPlane;
 	Rigidbody rb;
