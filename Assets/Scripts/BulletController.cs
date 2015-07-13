@@ -16,7 +16,10 @@ public class BulletController : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.CompareTag ("Enemy")) {
 			GameObject explosion = Instantiate(explosionPrefab, other.transform.position, Quaternion.identity) as GameObject;
-			explosion.GetComponentInChildren<ParticleSystem>().startColor = other.gameObject.GetComponent<MeshRenderer> ().material.color;
+			Color otherColor = other.gameObject.GetComponent<MeshRenderer> ().material.color;
+
+			explosion.GetComponentInChildren<ParticleSystem>().startColor = otherColor;
+			explosion.GetComponentInChildren<TextMesh>().color = otherColor;
 
 			Destroy(other.gameObject);
 			Destroy(gameObject);
