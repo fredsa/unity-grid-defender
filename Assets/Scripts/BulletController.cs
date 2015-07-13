@@ -24,7 +24,6 @@ public class BulletController : MonoBehaviour {
 			explosion.GetComponentInChildren<ParticleSystem>().startColor = otherColor;
 			explosion.GetComponentInChildren<TextMesh>().color = otherColor;
 			mine.GetComponentInChildren<MeshRenderer>().material.color = otherColor;
-			mine.GetComponent<Rigidbody>().angularVelocity = other.gameObject.GetComponent<Rigidbody>().angularVelocity / 5f;
 
 			Destroy(other.gameObject);
 			Destroy(gameObject);
