@@ -7,22 +7,19 @@ public class PlayerController : MonoBehaviour {
 	public float fingerYOffset = 0f;
 
 	float speed = 30f;
-	float clampX;
-	float clampy;
 	Vector3 targetPosition;
 	Plane playerPlane;
 	Rigidbody rb;
 
 	void Start() {
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		rb = GetComponent<Rigidbody> ();
 		playerPlane = new Plane(Vector3.forward, transform.position);
 		targetPosition = transform.position;
-		clampX = grid.localScale.x/2 - transform.localScale.x/2;
-		clampy = grid.localScale.y/2 - transform.localScale.y/2;
 	}
 
 	void Update() {
-		if (Input.GetMouseButtonDown (0)) {
+		if (Input.GetMouseButtonDown (0) || Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) {
 			transform.rotation =  Quaternion.LookRotation(transform.forward, -transform.up);
 		}
 

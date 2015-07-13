@@ -9,12 +9,10 @@ public class EnemySpawnController : MonoBehaviour {
 	public float rate = 1f;
 	public Color enemyColor;
 	
-	LayerMask layermask;
 	bool needSpawn = false;
 	float checkRadius;
 	
 	void Start () {
-		layermask = LayerMask.GetMask("Enemies");
 		InvokeRepeating ("Spawn", delay, rate);
 	}
 	
@@ -33,6 +31,5 @@ public class EnemySpawnController : MonoBehaviour {
 
 		enemyClone.GetComponent<Rigidbody> ().velocity = transform.right * speed;
 		enemyClone.gameObject.GetComponent<MeshRenderer> ().material.color = enemyColor;
-		
 	}
 }
