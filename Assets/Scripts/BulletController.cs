@@ -20,14 +20,15 @@ public class BulletController : MonoBehaviour {
 
 			GameObject explosion = Instantiate(explosionPrefab, other.transform.position, Quaternion.identity) as GameObject;
 
-			if (other.CompareTag ("Enemy")) {
-				GameObject mine = Instantiate(minePrefab, other.transform.position, Quaternion.identity) as GameObject;
-				mine.GetComponentInChildren<MeshRenderer>().material.color = otherColor;
-			}
-
 			explosion.GetComponentInChildren<ParticleSystem>().startColor = otherColor;
 			explosion.GetComponentInChildren<TextMesh>().color = otherColor;
 
+			if (other.CompareTag ("Enemy")) {
+				GameObject mine = Instantiate(minePrefab, other.transform.position, Quaternion.identity) as GameObject;
+				otherColor *= .3f;
+				mine.GetComponentInChildren<MeshRenderer>().material.color = otherColor;
+			}
+			
 			Destroy(other.gameObject);
 			Destroy(gameObject);
 		}
