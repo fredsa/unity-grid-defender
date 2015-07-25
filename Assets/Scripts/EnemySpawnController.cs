@@ -8,7 +8,9 @@ public class EnemySpawnController : MonoBehaviour {
 	public float delay = 0f;
 	public float rate = 1f;
 	public Color enemyColor;
-	
+	public int chainLength = 5;
+
+	int chainCount;
 	bool needSpawn = false;
 	float checkRadius;
 	
@@ -24,12 +26,20 @@ public class EnemySpawnController : MonoBehaviour {
 		if (!needSpawn) {
 			return;
 		}
-		
-		needSpawn = false;
-		GameObject enemyClone = Instantiate (enemyPrefab, transform.position, transform.rotation) as GameObject;
-		enemyClone.transform.parent = gameObject.transform;
 
-		enemyClone.GetComponent<Rigidbody> ().velocity = transform.right * speed;
-		enemyClone.gameObject.GetComponent<MeshRenderer> ().material.color = enemyColor;
+		GameObject target = null;
+		chainCount++;
+		for (int i=0; i<chainLength; i++) {
+			needSpawn = false;
+			GameObject enemyClone = Instantiate (enemyPrefab, transform.position, transform.rotation) as GameObject;
+			enemyClone.name += chainCount + "-" + i;
+			enemyClone.transform.parent = gameObject.transform;
+			enemyClone.gameObject.GetComponent<MeshRenderer> ().material.color = enemyColor * i/chainLength;
+
+			ChainController ctrl = enemyClone.GetComponent<ChainController> ();
+			ctrl.Setup(target, transform.right * speed);
+
+			target = enemyClone;
+		}
 	}
 }

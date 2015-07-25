@@ -1,21 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public class PlayerBounds {
+	public float xMin;
+	public float xMax;
+	public float yMin;
+	public float yMax;
+}
+
 public class PlayerController : MonoBehaviour {
 
+	public PlayerBounds bounds;
 	public Transform grid;
 	public float fingerYOffset = 0f;
 
-	float speed = 50f;
-	Vector3 targetPosition;
+	float speed = 20f;
 	Plane playerPlane;
-	Rigidbody rb;
 
 	void Start() {
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-		rb = GetComponent<Rigidbody> ();
 		playerPlane = new Plane(Vector3.forward, transform.position);
-		targetPosition = transform.position;
 	}
 
 	void Update() {
@@ -23,8 +28,7 @@ public class PlayerController : MonoBehaviour {
 			transform.rotation =  Quaternion.LookRotation(transform.forward, -transform.up);
 		}
 
-		Vector3 direction;
-
+		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
 			Vector3 pos = Input.mousePosition;
 			pos.y = pos.y + fingerYOffset;
@@ -32,11 +36,18 @@ public class PlayerController : MonoBehaviour {
 			float distance;
 			playerPlane.Raycast (ray, out distance);
 			targetPosition = ray.GetPoint (distance);
-			direction = targetPosition - transform.position;
 		} else {
-			direction = new Vector3(Input.GetAxisRaw ("Horizontal"),Input.GetAxisRaw ("Vertical"), 0);
+			targetPosition = transform.position + new Vector3(Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"), 0f);
 		}
 
-		rb.velocity = direction.normalized * speed;
+		targetPosition = Clamp (targetPosition, bounds);
+		transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed);
+
+	}
+
+	Vector3 Clamp (Vector3 pos, PlayerBounds bounds) {
+		pos.x = Mathf.Clamp (pos.x, bounds.xMin, bounds.xMax);
+		pos.y = Mathf.Clamp (pos.y, bounds.yMin, bounds.yMax);
+		return pos;
 	}
 }
