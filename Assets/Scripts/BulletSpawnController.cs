@@ -8,7 +8,7 @@ public class BulletSpawnController : MonoBehaviour {
 
 	float nextShotTime = 0f;
 
-	void FixedUpdate () {
+	void Update () {
 		if (Time.time < nextShotTime) {
 			return;
 		}
