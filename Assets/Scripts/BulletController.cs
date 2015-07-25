@@ -8,6 +8,7 @@ public class BulletController : MonoBehaviour {
 
 	float bulletSpeed = 40f;
 	Rigidbody rb;
+	int hitPoints = 2;
 
 	void Start () {
 	    rb = gameObject.GetComponent<Rigidbody> ();
@@ -29,7 +30,9 @@ public class BulletController : MonoBehaviour {
 			}
 			
 			Destroy(other.gameObject);
-			Destroy(gameObject);
+			if (--hitPoints <= 0) {
+				Destroy(gameObject);
+			}
 		}
 	}
 }
