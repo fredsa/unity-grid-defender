@@ -8,6 +8,12 @@ public class ScoreTextController : MonoBehaviour {
 	Text scoreText;
 	Animator animator;
 
+	static ScoreTextController instance;
+
+	void Awake() {
+		instance = this;
+	}
+	
 	void Start () {
 	    scoreText = gameObject.GetComponent<Text> ();
 	    animator = gameObject.GetComponent<Animator> ();
@@ -19,14 +25,14 @@ public class ScoreTextController : MonoBehaviour {
 		UpdateScore ();
 	}
 
-	public void AddPoints(int points) {
-		score += points;
-		animator.SetTrigger ("ValueChanged");
-		UpdateScore ();
+	public static void AddPoints(int points) {
+		instance.score += points;
+		instance.UpdateScore ();
 	}
 
 	void UpdateScore () {
 		scoreText.text = string.Format ("{0,-4:n0}", score);
+		animator.SetTrigger ("ValueChanged");
 	}
 
 }
