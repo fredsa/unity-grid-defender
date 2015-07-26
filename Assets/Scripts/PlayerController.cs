@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Update() {
 		if (Input.GetMouseButtonDown (0) || Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) {
-			transform.rotation =  Quaternion.LookRotation(transform.forward, -transform.up);
+			transform.rotation =  Quaternion.LookRotation(-transform.forward, transform.up);
 		}
 
 		Vector3 targetPosition;
