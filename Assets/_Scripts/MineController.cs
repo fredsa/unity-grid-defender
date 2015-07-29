@@ -12,7 +12,6 @@ public class MineController : MonoBehaviour {
 
 	void Drop() {
 		isDropping = true;
-//		GetComponent<Animator> ().SetTrigger ("Drop");
 	}
 
 	void FixedUpdate() {
