@@ -6,14 +6,13 @@ public class ChainController : MonoBehaviour {
 	public float timeToFirstHeadMove = 2f;
 	public float timeBetweenHeadMoves = 1f;
 
-	float tailFollowRate = .2f;
+	float tailFollowRate = .1f;
 	float timeNoMoveAfterUturn = .5f;
 
 	private GameObject target;
 	private float retargetTime;
 	private Vector3 targetPosition;
 	private Vector3 velocity;
-	private int turnCount;
 
 	public void Setup (GameObject target, Vector3 velocity) {
 		this.target = target;
@@ -55,7 +54,6 @@ public class ChainController : MonoBehaviour {
 			} else {
 				retargetTime += timeBetweenHeadMoves;
 				Turn (90 * Mathf.RoundToInt(Random.Range(-1f, 1f)));
-				turnCount++;
 			}
 		}
 	}
