@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform grid;
 
 	private float fingerYOffset = 2f;
-	private float trackSpeed = 1f;
+	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedMultiplier = .4f;
 	private Plane playerPlane;
 
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		targetPosition = Clamp (targetPosition, bounds);
-		transform.position = Vector3.MoveTowards(transform.position, targetPosition, trackSpeed);
+		transform.position = Vector3.MoveTowards(transform.position, targetPosition, maxTrackSpeed * Time.deltaTime);
 
 	}
 
