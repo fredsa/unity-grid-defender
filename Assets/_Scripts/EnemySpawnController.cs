@@ -10,28 +10,32 @@ public class EnemySpawnController : MonoBehaviour {
 	public Color chainColor;
 
 	private int chainLength = 15;
-
-	private int chainCount;
 	private float checkRadius;
+	private GameObject[] enemies;
 	
 	void Start () {
+		enemies = new GameObject[chainLength];
 		InvokeRepeating ("Spawn", timeToFirstSpawn, spawnRate);
 	}
 	
 	void Spawn () {
-		GameObject target = null;
-		chainCount++;
 		for (int i=0; i<chainLength; i++) {
-			GameObject enemyClone = Instantiate (enemyPrefab, transform.position, transform.rotation) as GameObject;
-			enemyClone.name += chainCount + "-" + i;
-			enemyClone.transform.parent = gameObject.transform;
-			enemyClone.gameObject.GetComponent<MeshRenderer> ().material.color = chainColor * i/chainLength;
+			if (enemies[i]) {
+				return;
+			}
+		}
+		GameObject target = null;
+		for (int i=0; i<chainLength; i++) {
+			enemies[i] = Instantiate (enemyPrefab, transform.position, transform.rotation) as GameObject;
+			enemies[i].name += i;
+			enemies[i].transform.parent = gameObject.transform;
+			enemies[i].gameObject.GetComponent<MeshRenderer> ().material.color = chainColor * i/chainLength;
 
-			ChainController chainController = enemyClone.GetComponent<ChainController> ();
+			ChainController chainController = enemies[i].GetComponent<ChainController> ();
 			chainController.Setup(target, transform.right * enemySpeed);
 			chainController.SetIndex(i);
 
-			target = enemyClone;
+			target = enemies[i];
 		}
 	}
 }
