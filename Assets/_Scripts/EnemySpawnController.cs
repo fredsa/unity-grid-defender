@@ -8,10 +8,11 @@ public class EnemySpawnController : MonoBehaviour {
 	public float timeToFirstSpawn = 0f;
 	public float spawnRate = 4f;
 	public Color chainColor;
-	int chainLength = 15;
 
-	int chainCount;
-	float checkRadius;
+	private int chainLength = 15;
+
+	private int chainCount;
+	private float checkRadius;
 	
 	void Start () {
 		InvokeRepeating ("Spawn", timeToFirstSpawn, spawnRate);

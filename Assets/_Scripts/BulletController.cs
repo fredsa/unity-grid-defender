@@ -6,9 +6,10 @@ public class BulletController : MonoBehaviour {
 	public GameObject explosionPrefab;
 	public GameObject minePrefab;
 
-	float bulletSpeed = 40f;
-	Rigidbody rb;
-	int hitPoints = 2;
+	private float bulletSpeed = 40f;
+	private int hitPoints = 3;
+
+	private Rigidbody rb;
 
 	void Start () {
 	    rb = gameObject.GetComponent<Rigidbody> ();

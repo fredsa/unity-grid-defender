@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour {
 
 	public PlayerBounds bounds;
 	public Transform grid;
-	public float fingerYOffset = 0f;
 
-	float speed = 20f;
-	Plane playerPlane;
+	private float fingerYOffset = 2f;
+	private float speed = 1f;
+	private Plane playerPlane;
 
 	void Start() {
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -24,18 +24,18 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetMouseButtonDown (0) || Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) {
-			transform.rotation =  Quaternion.LookRotation(-transform.forward, transform.up);
-		}
+//		if (Input.GetMouseButtonDown (0) || Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) {
+//			transform.rotation =  Quaternion.LookRotation(-transform.forward, transform.up);
+//		}
 
 		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
 			Vector3 pos = Input.mousePosition;
-			pos.y = pos.y + fingerYOffset;
 			Ray ray = Camera.main.ScreenPointToRay (pos);
 			float distance;
 			playerPlane.Raycast (ray, out distance);
 			targetPosition = ray.GetPoint (distance);
+			targetPosition.y += fingerYOffset;
 		} else {
 			targetPosition = transform.position + new Vector3(Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"), 0f);
 		}
