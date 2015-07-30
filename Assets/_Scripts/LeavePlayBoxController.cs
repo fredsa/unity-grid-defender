@@ -8,10 +8,5 @@ public class LeavePlayBoxController : MonoBehaviour {
 			Destroy(other.gameObject);
 			return;
 		}
-
-		if (other.gameObject.CompareTag ("Enemy")) {
-			other.gameObject.GetComponent<ChainController>().UTurn();
-			return;
-		}
 	}
 }

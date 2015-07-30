@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemySpawnController : MonoBehaviour {
 
 	public GameObject enemyPrefab;
+	public GameObject playbox;
 	public float enemySpeed = 7f;
 	public float timeToFirstSpawn = 0f;
 	public float spawnRate = 4f;
@@ -32,7 +33,7 @@ public class EnemySpawnController : MonoBehaviour {
 			enemies[i].gameObject.GetComponent<MeshRenderer> ().material.color = chainColor * i/chainLength;
 
 			ChainController chainController = enemies[i].GetComponent<ChainController> ();
-			chainController.Setup(target, transform.right * enemySpeed);
+			chainController.Setup(playbox, target, transform.right * enemySpeed);
 			chainController.SetIndex(i);
 
 			target = enemies[i];
