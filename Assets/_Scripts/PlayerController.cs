@@ -11,6 +11,7 @@ public class PlayerBounds {
 
 public class PlayerController : MonoBehaviour {
 
+	public GameObject explosionPrefab;
 	public PlayerBounds bounds;
 	public Transform grid;
 
@@ -46,7 +47,14 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
-	Vector3 Clamp (Vector3 pos, PlayerBounds bounds) {
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("EnemyObstacle")) {
+			Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+			Destroy(gameObject);
+		}
+	}
+
+	private Vector3 Clamp (Vector3 pos, PlayerBounds bounds) {
 		pos.x = Mathf.Clamp (pos.x, bounds.xMin, bounds.xMax);
 		pos.y = Mathf.Clamp (pos.y, bounds.yMin, bounds.yMax);
 		return pos;
