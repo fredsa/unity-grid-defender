@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour {
 	public Transform grid;
 
 	private float fingerYOffset = 2f;
-	private float speed = 1f;
+	private float trackSpeed = 1f;
+	private float keyboardSpeedMultiplier = .4f;
 	private Plane playerPlane;
 
 	void Start() {
@@ -37,11 +38,11 @@ public class PlayerController : MonoBehaviour {
 			targetPosition = ray.GetPoint (distance);
 			targetPosition.y += fingerYOffset;
 		} else {
-			targetPosition = transform.position + new Vector3(Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"), 0f);
+			targetPosition = transform.position + new Vector3(Input.GetAxisRaw ("Horizontal") * keyboardSpeedMultiplier, Input.GetAxisRaw ("Vertical") * keyboardSpeedMultiplier, 0f);
 		}
 
 		targetPosition = Clamp (targetPosition, bounds);
-		transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed);
+		transform.position = Vector3.MoveTowards(transform.position, targetPosition, trackSpeed);
 
 	}
 
