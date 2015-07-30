@@ -20,6 +20,8 @@ public class BulletController : MonoBehaviour {
 		if (other.CompareTag ("Enemy") || other.CompareTag ("EnemyObstacle")) {
 			int points = 10;
 			Color otherColor = other.gameObject.GetComponent<MeshRenderer> ().material.color;
+			otherColor.a = 1f;
+			Debug.Log(otherColor);
 
 			GameObject explosion = Instantiate(explosionPrefab, other.transform.position, Quaternion.identity) as GameObject;
 			explosion.GetComponentInChildren<ParticleSystem>().startColor = otherColor;
