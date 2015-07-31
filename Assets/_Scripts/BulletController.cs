@@ -34,7 +34,7 @@ public class BulletController : MonoBehaviour {
 			}
 			
 			Destroy(other.gameObject);
-			ScoreTextController.AddPoints(points);
+			FindObjectOfType<GameController>().AddPoints(points);
 			if (--hitPoints <= 0) {
 				Destroy(gameObject);
 			}

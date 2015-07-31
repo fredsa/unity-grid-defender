@@ -10,7 +10,7 @@ public class PlayerBounds {
 }
 
 public class PlayerController : MonoBehaviour {
-
+	
 	public GameObject explosionPrefab;
 	public PlayerBounds bounds;
 	public Transform grid;
@@ -50,7 +50,9 @@ public class PlayerController : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("EnemyObstacle")) {
 			Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-			Destroy(gameObject);
+			FindObjectOfType<GameController>().Die();
+			GetComponent<Collider>().enabled = false;
+			GetComponentInChildren<MeshRenderer>().enabled = false;
 		}
 	}
 

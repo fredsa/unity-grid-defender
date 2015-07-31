@@ -6,7 +6,7 @@ public class BulletSpawnController : MonoBehaviour {
 	public GameObject bulletPrefab;
 	public float rate = .1f;
 
-	float nextShotTime = 0f;
+	private float nextShotTime = 0f;
 
 	void Update () {
 		if (Time.time < nextShotTime) {
