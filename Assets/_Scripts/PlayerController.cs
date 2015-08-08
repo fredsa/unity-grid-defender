@@ -19,20 +19,17 @@ public class PlayerController : MonoBehaviour {
 	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedMultiplier = .4f;
 	private Plane playerPlane;
-	private bool dead;
+	private Animator animator;
+	private int PlayerDeathProperty = Animator.StringToHash ("PlayerDeath");
 
 	void Start() {
-		dead = false;
+		animator = gameObject.GetComponent<Animator> ();
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		playerPlane = new Plane(Vector3.forward, transform.position);
 	}
 
 	void Update() {
-		if (dead) {
-			return;
-		}
-
-//		if (Input.GetMouseButtonDown (0) || Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) {
+		//		if (Input.GetMouseButtonDown (0) || Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) {
 //			transform.rotation =  Quaternion.LookRotation(-transform.forward, transform.up);
 //		}
 
@@ -57,20 +54,8 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("EnemyObstacle")) {
 			Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 			FindObjectOfType<GameController>().SubtractLife();
-			ToggleDeath();
-			Invoke("ToggleDeath", 2f);
+			animator.SetTrigger (PlayerDeathProperty);
 		}
-	}
-
-	private void ToggleDeath() {
-		this.dead = !dead;
-		
-		//disable collisions
-		GetComponent<Collider>().enabled = !dead;
-
-		//disable player capsule
-		transform.GetChild(0).gameObject.SetActive(!dead);
-		// GetComponentInChildren<MeshRenderer>().enabled = !dead;
 	}
 
 	private Vector3 Clamp (Vector3 pos, PlayerBounds bounds) {
