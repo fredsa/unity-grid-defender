@@ -43,6 +43,5 @@ public class EnemySpawnController : MonoBehaviour {
 	Color MakeColor (int i) {
 		float factor = (float)i/chainLength * .75f + .25f;
 		return chainColor * factor;
-		return new Color(chainColor.r * factor, chainColor.g * factor, chainColor.b * factor, 1f);
 	}
 }

@@ -16,9 +16,7 @@ public class GameController : MonoBehaviour {
 		scoreTextController.IncrementValue (points);
 	}
 
-	public void Die() {
-		if (livesTextController.IncrementValue (-1) == 0) {
-			Time.timeScale = .1f;
-		}
+	public int SubtractLife() {
+		return livesTextController.IncrementValue (-1);
 	}
 }
