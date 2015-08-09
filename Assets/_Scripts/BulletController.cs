@@ -31,6 +31,7 @@ public class BulletController : MonoBehaviour {
 				GameObject mine = Instantiate(minePrefab, other.transform.position, Quaternion.identity) as GameObject;
 				otherColor *= .8f;
 				mine.GetComponentInChildren<MeshRenderer>().material.color = otherColor;
+				mine.GetComponentInChildren<Light>().color = otherColor;
 			}
 			
 			Destroy(other.gameObject);
