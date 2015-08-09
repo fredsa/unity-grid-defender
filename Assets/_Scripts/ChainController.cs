@@ -4,8 +4,8 @@ using System.Collections;
 public class ChainController : MonoBehaviour {
 	
 	public GameObject playbox;
-	float timeToFirstHeadMove = 4f;
-	float timeBetweenHeadMoves = 1f;
+	float timeToFirstHeadMove = 1f;
+	float timeBetweenHeadMoves = .7f;
 
 	private float desiredDistance = .6f;
 	private GameObject target;
@@ -52,7 +52,7 @@ public class ChainController : MonoBehaviour {
 			var newPos = CalculateNewPos ();
 			if (Time.time >= retargetTime) {
 				Turn (90 * Mathf.RoundToInt (Random.Range (-1f, 1f)));
-				retargetTime += Time.time + timeBetweenHeadMoves;
+				retargetTime = Time.time + timeBetweenHeadMoves;
 			}
 			transform.position = newPos;
 		}
