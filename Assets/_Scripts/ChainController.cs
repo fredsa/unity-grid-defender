@@ -5,7 +5,7 @@ public class ChainController : MonoBehaviour {
 	
 	public GameObject playbox;
 	float timeToFirstHeadMove = 1f;
-	float timeBetweenHeadMoves = .7f;
+	float timeBetweenHeadMoves = .8f;
 
 	private float desiredDistance = .6f;
 	private GameObject target;
@@ -21,8 +21,8 @@ public class ChainController : MonoBehaviour {
 		this.target = target;
 		this.velocity = velocity;
 		velocityMagnitude = velocity.magnitude;
-		xMax = playbox.transform.localScale.x / 2;
-		yMax = playbox.transform.localScale.y / 2;
+		xMax = playbox.transform.localScale.x / 2 - velocityMagnitude * Time.fixedDeltaTime;
+		yMax = playbox.transform.localScale.y / 2 - velocityMagnitude * Time.fixedDeltaTime;
 	}
 
 	public void SetIndex (int index) {
@@ -61,18 +61,22 @@ public class ChainController : MonoBehaviour {
 	Vector3 CalculateNewPos () {
 		Vector3 newPos = transform.position + velocity * Time.deltaTime;
 		if (newPos.x < -xMax) {
+			newPos.x = -xMax;
 			velocity.x = velocityMagnitude;
-			retargetTime = Time.time + .1f;
+			velocity.y = velocityMagnitude * Random.Range(-1f, 1f);
 		} else if (newPos.x > xMax) {
+			newPos.x = xMax;
 			velocity.x = -velocityMagnitude;
-			retargetTime = Time.time + .1f;
+			velocity.y = velocityMagnitude * Random.Range(-1f, 1f);
 		}
 		if (newPos.y < -yMax) {
+			newPos.y = -yMax;
+			velocity.x = velocityMagnitude * Random.Range(-1f, 1f);
 			velocity.y = velocityMagnitude;
-			retargetTime = Time.time + .1f;
 		} else if (newPos.y > yMax) {
+			newPos.y = yMax;
+			velocity.x = velocityMagnitude * Random.Range(-1f, 1f);
 			velocity.y = -velocityMagnitude;
-			retargetTime = Time.time + .1f;
 		}
 		return newPos;
 	}
