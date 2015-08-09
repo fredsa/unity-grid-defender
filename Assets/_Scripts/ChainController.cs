@@ -12,7 +12,6 @@ public class ChainController : MonoBehaviour {
 	private float retargetTime;
 	private Vector3 velocity;
 	private float velocityMagnitude;
-	private int index;
 	private float xMax;
 	private float yMax;
 
@@ -23,10 +22,6 @@ public class ChainController : MonoBehaviour {
 		velocityMagnitude = velocity.magnitude;
 		xMax = playbox.transform.localScale.x / 2 - velocityMagnitude * Time.fixedDeltaTime;
 		yMax = playbox.transform.localScale.y / 2 - velocityMagnitude * Time.fixedDeltaTime;
-	}
-
-	public void SetIndex (int index) {
-		this.index = index;
 	}
 
 	void Start () {

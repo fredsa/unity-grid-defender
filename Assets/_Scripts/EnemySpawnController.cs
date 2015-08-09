@@ -34,7 +34,6 @@ public class EnemySpawnController : MonoBehaviour {
 
 			ChainController chainController = enemies[i].GetComponent<ChainController> ();
 			chainController.Setup(playbox, target, transform.right * enemySpeed);
-			chainController.SetIndex(i);
 
 			target = enemies[i];
 		}
