@@ -30,7 +30,9 @@ public class EnemySpawnController : MonoBehaviour {
 			enemies[i] = Instantiate (enemyPrefab, transform.position, transform.rotation) as GameObject;
 			enemies[i].name += i;
 			enemies[i].transform.parent = gameObject.transform;
-			enemies[i].gameObject.GetComponent<MeshRenderer> ().material.color = MakeColor(i);
+			Color color = MakeColor (i);
+			enemies [i].gameObject.GetComponent<MeshRenderer> ().material.color = color;
+			enemies[i].gameObject.GetComponent<Light> ().color = color;
 
 			ChainController chainController = enemies[i].GetComponent<ChainController> ();
 			chainController.Setup(playbox, target, transform.right * enemySpeed);
