@@ -1,21 +1,39 @@
 fileFormatVersion: 2
-guid: 57d777e99e8bf40b8ad61188f73fb1f7
-timeCreated: 1439175832
+guid: d9e98a45d2bbc4263bb8afe4d307c2ea
+timeCreated: 1439318603
 licenseType: Free
-ModelImporter:
+SketchUpImporter:
+  generateBackFace: 0
+  mergeCoplanarFaces: 0
+  selectedNodes: 0000000001000000
+  assetHash:
+    serializedVersion: 2
+    Hash: 9fbd02a44e71813e250dcc0f01d11591
+  longitude: -105.24213899999999
+  latitude: 40.018309000000002
+  northCorrection: -0
+  fileUnit: 0
+  sketchUpImportData:
+    defaultCamera:
+      position: {x: -269.798981, y: 165.053024, z: -28.3605385}
+      lookAt: {x: -188.434113, y: 105.327049, z: -15.4267406}
+      up: {x: .579662681, y: .809630036, z: .0921434686}
+      fov: 35
+      aspectRatio: 0
+      orthoSize: 1
+      isPerspective: 1
+    scenes: []
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Mesh1
-    100002: //RootNode
-    400000: Mesh1
-    400002: //RootNode
-    2300000: Mesh1
-    3300000: Mesh1
-    4300000: Mesh1
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Mesh Player Shield Ring
   materials:
     importMaterials: 1
-    materialName: 0
-    materialSearch: 1
+    materialName: 2
+    materialSearch: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -35,7 +53,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: .0253999997
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -55,7 +73,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []
