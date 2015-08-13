@@ -9,8 +9,8 @@ public class EnemySpawnController : MonoBehaviour {
 	public float timeToFirstSpawn = 0f;
 	public float spawnRate = 4f;
 	public Color chainColor;
+	public int chainLength = 15;
 
-	private int chainLength = 15;
 	private float checkRadius;
 	
 	void Start () {
