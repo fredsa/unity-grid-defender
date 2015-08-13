@@ -6,6 +6,7 @@ public class ChainController : MonoBehaviour {
 	float timeToFirstHeadMove = 1f;
 	float timeBetweenHeadMoves = .8f;
 
+	private bool hasEnteredPlaybox;
 	private float desiredDistance = .6f;
 	private GameObject target;
 	private float retargetTime;
@@ -16,6 +17,7 @@ public class ChainController : MonoBehaviour {
 
 	public void Setup (GameObject playbox, GameObject target, Vector3 velocity) {
 		this.target = target;
+		hasEnteredPlaybox = target != null;
 		this.velocity = velocity;
 		velocityMagnitude = velocity.magnitude;
 		xMax = playbox.transform.localScale.x / 2 - velocityMagnitude * Time.fixedDeltaTime;
@@ -53,23 +55,28 @@ public class ChainController : MonoBehaviour {
 
 	Vector3 CalculateNewPos () {
 		Vector3 newPos = transform.position + velocity * Time.deltaTime;
-		if (newPos.x < -xMax) {
-			newPos.x = -xMax;
-			velocity.x = velocityMagnitude;
-			velocity.y = velocityMagnitude * Random.Range(-1f, 1f);
-		} else if (newPos.x > xMax) {
-			newPos.x = xMax;
-			velocity.x = -velocityMagnitude;
-			velocity.y = velocityMagnitude * Random.Range(-1f, 1f);
+		if (!hasEnteredPlaybox && newPos.x >= -xMax && newPos.x <= xMax && newPos.y >= -yMax && newPos.y <= yMax) {
+			hasEnteredPlaybox = true;
 		}
-		if (newPos.y < -yMax) {
-			newPos.y = -yMax;
-			velocity.x = velocityMagnitude * Random.Range(-1f, 1f);
-			velocity.y = velocityMagnitude;
-		} else if (newPos.y > yMax) {
-			newPos.y = yMax;
-			velocity.x = velocityMagnitude * Random.Range(-1f, 1f);
-			velocity.y = -velocityMagnitude;
+		if (hasEnteredPlaybox) {
+			if (newPos.x < -xMax) {
+				newPos.x = -xMax;
+				velocity.x = velocityMagnitude;
+				velocity.y = velocityMagnitude * Random.Range(-1f, 1f);
+			} else if (newPos.x > xMax) {
+				newPos.x = xMax;
+				velocity.x = -velocityMagnitude;
+				velocity.y = velocityMagnitude * Random.Range(-1f, 1f);
+			}
+			if (newPos.y < -yMax) {
+				newPos.y = -yMax;
+				velocity.x = velocityMagnitude * Random.Range(-1f, 1f);
+				velocity.y = velocityMagnitude;
+			} else if (newPos.y > yMax) {
+				newPos.y = yMax;
+				velocity.x = velocityMagnitude * Random.Range(-1f, 1f);
+				velocity.y = -velocityMagnitude;
+			}
 		}
 		return newPos;
 	}
