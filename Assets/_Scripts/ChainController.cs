@@ -6,7 +6,6 @@ public class ChainController : MonoBehaviour {
 	float timeToFirstHeadMove = 1f;
 	float timeBetweenHeadMoves = .8f;
 
-	private GameObject playbox;
 	private float desiredDistance = .6f;
 	private GameObject target;
 	private float retargetTime;
@@ -16,7 +15,6 @@ public class ChainController : MonoBehaviour {
 	private float yMax;
 
 	public void Setup (GameObject playbox, GameObject target, Vector3 velocity) {
-		this.playbox = playbox;
 		this.target = target;
 		this.velocity = velocity;
 		velocityMagnitude = velocity.magnitude;
