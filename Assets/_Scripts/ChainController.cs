@@ -3,10 +3,10 @@ using System.Collections;
 
 public class ChainController : MonoBehaviour {
 	
-	public GameObject playbox;
 	float timeToFirstHeadMove = 1f;
 	float timeBetweenHeadMoves = .8f;
 
+	private GameObject playbox;
 	private float desiredDistance = .6f;
 	private GameObject target;
 	private float retargetTime;
