@@ -12,32 +12,25 @@ public class EnemySpawnController : MonoBehaviour {
 
 	private int chainLength = 15;
 	private float checkRadius;
-	private GameObject[] enemies;
 	
 	void Start () {
-		enemies = new GameObject[chainLength];
 		InvokeRepeating ("Spawn", timeToFirstSpawn, spawnRate);
 	}
 	
 	void Spawn () {
+		GameObject previousEnemy = null;
 		for (int i=0; i<chainLength; i++) {
-			if (enemies[i]) {
-				return;
-			}
-		}
-		GameObject target = null;
-		for (int i=0; i<chainLength; i++) {
-			enemies[i] = Instantiate (enemyPrefab, transform.position, transform.rotation) as GameObject;
-			enemies[i].name += i;
-			enemies[i].transform.parent = gameObject.transform;
+			GameObject enemy = Instantiate (enemyPrefab, transform.position, transform.rotation) as GameObject;
+			enemy.name += i;
+			enemy.transform.parent = gameObject.transform;
 			Color color = MakeColor (i);
-			enemies [i].gameObject.GetComponent<MeshRenderer> ().material.color = color;
-			enemies[i].gameObject.GetComponent<Light> ().color = color;
+			enemy.GetComponent<MeshRenderer> ().material.color = color;
+			enemy.GetComponent<Light> ().color = color;
 
-			ChainController chainController = enemies[i].GetComponent<ChainController> ();
-			chainController.Setup(playbox, target, transform.right * enemySpeed);
+			ChainController chainController = enemy.GetComponent<ChainController> ();
+			chainController.Setup(playbox, previousEnemy, transform.right * enemySpeed);
 
-			target = enemies[i];
+			previousEnemy = enemy;
 		}
 	}
 
