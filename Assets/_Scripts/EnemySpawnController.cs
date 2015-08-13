@@ -18,6 +18,9 @@ public class EnemySpawnController : MonoBehaviour {
 	}
 	
 	void Spawn () {
+		if (transform.childCount > 0) {
+			return;
+		}
 		GameObject previousEnemy = null;
 		for (int i=0; i<chainLength; i++) {
 			GameObject enemy = Instantiate (enemyPrefab, transform.position, transform.rotation) as GameObject;

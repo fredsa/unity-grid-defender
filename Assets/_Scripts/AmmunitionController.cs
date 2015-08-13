@@ -21,6 +21,7 @@ public class AmmunitionController : MonoBehaviour {
 			
 			if (other.CompareTag ("Enemy")) {
 				GameObject mine = Instantiate(minePrefab, other.transform.position, Quaternion.identity) as GameObject;
+				mine.transform.parent = other.transform.parent;
 				otherColor *= .8f;
 				mine.GetComponentInChildren<MeshRenderer>().material.color = otherColor;
 				mine.GetComponentInChildren<Light>().color = otherColor;
