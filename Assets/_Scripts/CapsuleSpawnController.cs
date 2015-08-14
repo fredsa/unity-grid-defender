@@ -19,12 +19,15 @@ public class CapsuleSpawnController : MonoBehaviour {
 			Random.Range (-playbox.transform.localScale.y/2, playbox.transform.localScale.y/2),
 			0);
 		Color color = new Color (
-			Random.Range (0f, .6f),
-			Random.Range (0f, .6f),
-			Random.Range (0f, .6f),
+			Random.Range (.2f, .6f),
+			Random.Range (.2f, .6f),
+			Random.Range (.2f, .6f),
 			1f);
 		capsule = Instantiate (capsulePrefab, position, Quaternion.identity) as GameObject;
 		capsule.GetComponent<MeshRenderer> ().material.color = color;
+
+		color.a = .5f;
+		capsule.GetComponent<Light>().color = color;
 		capsule.transform.parent = transform;
 	}
 }
