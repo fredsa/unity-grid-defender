@@ -5,6 +5,7 @@ using System.Collections;
 public class CanvasTextController : MonoBehaviour {
 
 	public string format = "{0,-4:n0}";
+
 	int value;
 	Text valueText;
 	Animator animator;

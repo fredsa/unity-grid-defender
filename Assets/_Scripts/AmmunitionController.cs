@@ -17,7 +17,7 @@ public class AmmunitionController : MonoBehaviour {
 			GameObject explosion = Instantiate(explosionPrefab, other.transform.position, Quaternion.identity) as GameObject;
 			explosion.GetComponentInChildren<ParticleSystem>().startColor = otherColor;
 			explosion.GetComponentInChildren<TextMesh>().color = otherColor;
-			explosion.GetComponentInChildren<TextMesh>().text = string.Format("{0}", points);
+			explosion.GetComponentInChildren<TextMesh>().text = string.Format(Constants.pointsFormat, points);
 			
 			if (other.CompareTag ("Enemy")) {
 				GameObject mine = Instantiate(minePrefab, other.transform.position, Quaternion.identity) as GameObject;
