@@ -16,7 +16,7 @@ public class CapsuleSpawnController : MonoBehaviour {
 	void Spawn () {
 		Vector3 position = new Vector3 (
 			Random.Range (-playbox.transform.localScale.x/2, playbox.transform.localScale.x/2),
-			Random.Range (-playbox.transform.localScale.y/2, playbox.transform.localScale.y/2),
+			playbox.transform.localScale.y/2 + transform.localScale.y * 2,
 			0);
 		Color color = new Color (
 			Random.Range (.2f, .6f),
