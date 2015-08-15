@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject explosionPrefab;
 	public PlayerBounds bounds;
 	public Transform grid;
+	public bool invinsible = false;
 
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
@@ -29,10 +30,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-		//		if (Input.GetMouseButtonDown (0) || Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1")) {
-//			transform.rotation =  Quaternion.LookRotation(-transform.forward, transform.up);
-//		}
-
 		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
 			Vector3 pos = Input.mousePosition;
@@ -52,9 +49,12 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("EnemyObstacle")) {
+			Destroy(other.gameObject);
 			Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-			FindObjectOfType<GameController>().SubtractLife();
-			animator.SetTrigger (PlayerDeathProperty);
+			if (!invinsible) {
+				FindObjectOfType<GameController>().SubtractLife();
+				animator.SetTrigger (PlayerDeathProperty);
+			}
 		}
 	}
 
