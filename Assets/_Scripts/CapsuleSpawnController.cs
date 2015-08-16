@@ -24,10 +24,10 @@ public class CapsuleSpawnController : MonoBehaviour {
 			Random.Range (.2f, .6f),
 			1f);
 		capsule = Instantiate (capsulePrefab, position, Quaternion.identity) as GameObject;
-		capsule.GetComponent<MeshRenderer> ().material.color = color;
+		capsule.GetComponentInChildren<MeshRenderer> ().material.color = color;
 
 		color.a = .5f;
-		capsule.GetComponent<Light>().color = color;
+		capsule.GetComponentInChildren<Light>().color = color;
 		capsule.transform.parent = transform;
 	}
 }
