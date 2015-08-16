@@ -16,20 +16,31 @@ public class PlayerController : MonoBehaviour {
 	public Transform grid;
 	public bool invinsible = false;
 
+	private GameObject playerCapsule;
+	private Material playerCapsuleMaterial;
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedMultiplier = .4f;
 	private Plane playerPlane;
 	private Animator animator;
 	private int PlayerDeathProperty = Animator.StringToHash ("PlayerDeath");
+	private Color bonusColor;
+
+	public void SetBonusColor(Color bonusColor) {
+		this.bonusColor = bonusColor;
+	}
 
 	void Start() {
+		playerCapsule = transform.GetChild (0).gameObject;
+		playerCapsuleMaterial = playerCapsule.GetComponent<MeshRenderer> ().material;
+		bonusColor = playerCapsuleMaterial.color;
 		animator = gameObject.GetComponent<Animator> ();
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		playerPlane = new Plane(Vector3.forward, transform.position);
 	}
 
 	void Update() {
+		playerCapsuleMaterial.color = bonusColor;
 		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
 			Vector3 pos = Input.mousePosition;

@@ -14,7 +14,9 @@ public class CapsuleController : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.CompareTag ("Player")) {
 			GameObject pointsEarned = Instantiate(pointsEarnedPrefab, transform.position, Quaternion.identity) as GameObject;
-			pointsEarned.GetComponent<TextMesh>().color = GetComponentInChildren<MeshRenderer>().material.color;
+			var color = GetComponentInChildren<MeshRenderer> ().material.color;
+			other.GetComponent<PlayerController>().SetBonusColor(color);
+			pointsEarned.GetComponent<TextMesh> ().color = color;
 			pointsEarned.GetComponent<TextMesh>().text = string.Format(Constants.pointsFormat, points);
 			FindObjectOfType<GameController>().AddPoints(points);
 			AudioSource.PlayClipAtPoint(GetComponent<AudioSource>().clip, transform.position);
