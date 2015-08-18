@@ -19,7 +19,7 @@ public class CapsuleController : MonoBehaviour {
 			pointsEarned.GetComponent<TextMesh> ().color = color;
 			pointsEarned.GetComponent<TextMesh>().text = string.Format(Constants.pointsFormat, points);
 			FindObjectOfType<GameController>().AddPoints(points);
-			AudioSource.PlayClipAtPoint(GetComponent<AudioSource>().clip, transform.position);
+			GetComponentInChildren<DetachPlaySelfDestructController>().DetachPlaySelfDestruct();
 			Destroy(gameObject);
 		}
 	}
