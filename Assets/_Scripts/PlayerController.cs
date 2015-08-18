@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 
 	private GameObject playerCapsule;
 	private Material playerCapsuleMaterial;
+	private Light playerLight;
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedMultiplier = .4f;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 	private Animator animator;
 	private int PlayerDeathProperty = Animator.StringToHash ("PlayerDeath");
 	private Color bonusColor;
+	private Color startingColor;
 
 	public void SetBonusColor(Color bonusColor) {
 		this.bonusColor = bonusColor;
@@ -33,7 +35,9 @@ public class PlayerController : MonoBehaviour {
 	void Start() {
 		playerCapsule = transform.GetChild (0).gameObject;
 		playerCapsuleMaterial = playerCapsule.GetComponent<MeshRenderer> ().material;
-		bonusColor = playerCapsuleMaterial.color;
+		playerLight = playerCapsule.GetComponent<Light> ();
+		startingColor = playerCapsuleMaterial.color;
+		bonusColor = startingColor;
 		animator = gameObject.GetComponent<Animator> ();
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		playerPlane = new Plane(Vector3.forward, transform.position);
@@ -41,6 +45,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Update() {
 		playerCapsuleMaterial.color = bonusColor;
+		playerLight.color = bonusColor;
 		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
 			Vector3 pos = Input.mousePosition;
@@ -63,6 +68,7 @@ public class PlayerController : MonoBehaviour {
 			Destroy(other.gameObject);
 			Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 			if (!invinsible) {
+				bonusColor = startingColor;
 				FindObjectOfType<GameController>().SubtractLife();
 				animator.SetTrigger (PlayerDeathProperty);
 			}
