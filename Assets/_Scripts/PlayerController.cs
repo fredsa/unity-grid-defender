@@ -33,18 +33,19 @@ public class PlayerController : MonoBehaviour {
 		this.bonusColor = bonusColor;
 		switch (Random.Range (0, 3)) {
 		case 0:
-			GetComponentInChildren<BulletSpawnController>().SetBulletCount(1);
-			GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {-2, 2});
+			GetComponentInChildren<BulletSpawnController>().SetBulletCount(3);
+			GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {0});
 			break;
 		case 1:
 			GetComponentInChildren<BulletSpawnController>().SetBulletCount(2);
-			GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {-5, 0, 5});
+			GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {-2, 0, 2});
 			break;
 		case 2:
-			GetComponentInChildren<BulletSpawnController>().SetBulletCount(3);
+			GetComponentInChildren<BulletSpawnController>().SetBulletCount(1);
 			GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {-90, 0, 90, 180});
 			break;
 		}
+//		GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
 	}
 
 	void Start() {

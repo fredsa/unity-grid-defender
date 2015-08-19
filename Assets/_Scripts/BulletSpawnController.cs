@@ -4,7 +4,7 @@ using System.Collections;
 public class BulletSpawnController : MonoBehaviour {
 
 	public GameObject bulletPrefab;
-	public float rate = .1f;
+	public float rate = .15f;
 
 	private float nextShotTime = 0f;
 	private int bulletCount = 1;

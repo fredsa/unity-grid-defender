@@ -10,7 +10,7 @@ public class CapsuleSpawnController : MonoBehaviour {
 
 	void Start () {
 		playbox = GameObject.FindWithTag ("Playbox");
-		InvokeRepeating ("Spawn", 3f, 10f);	
+		InvokeRepeating ("Spawn", 3f, 1.0f);	
 	}
 	
 	void Spawn () {
