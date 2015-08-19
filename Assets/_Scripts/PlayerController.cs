@@ -11,7 +11,8 @@ public class PlayerBounds {
 
 public class PlayerController : MonoBehaviour {
 	
-	public GameObject explosionPrefab;
+	public GameObject playerExplosionPrefab;
+	public GameObject enemyExplosionPrefab;
 	public PlayerBounds bounds;
 	public Transform grid;
 	public bool invinsible = false;
@@ -66,8 +67,9 @@ public class PlayerController : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("EnemyObstacle")) {
 			Destroy(other.gameObject);
-			Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+			Instantiate(enemyExplosionPrefab, transform.position, Quaternion.identity);
 			if (!invinsible) {
+				Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
 				bonusColor = startingColor;
 				FindObjectOfType<GameController>().SubtractLife();
 				animator.SetTrigger (PlayerDeathProperty);
