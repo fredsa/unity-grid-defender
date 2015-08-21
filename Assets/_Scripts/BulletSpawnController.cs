@@ -19,6 +19,9 @@ public class BulletSpawnController : MonoBehaviour {
 	}
 
 	void Update () {
+		if (!Input.GetMouseButton (0)) {
+			return;
+		}
 		if (Time.time < nextShotTime) {
 			return;
 		}
