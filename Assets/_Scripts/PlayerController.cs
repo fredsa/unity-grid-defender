@@ -82,8 +82,9 @@ public class PlayerController : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("EnemyObstacle")) {
 			Destroy(other.gameObject);
-			Instantiate(enemyExplosionPrefab, transform.position, Quaternion.identity);
 			if (!invinsible) {
+				invinsible = true;
+				Instantiate(enemyExplosionPrefab, transform.position, Quaternion.identity);
 				Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
 				bonusColor = startingColor;
 				FindObjectOfType<GameController>().SubtractLife();
