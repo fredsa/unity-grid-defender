@@ -6,16 +6,31 @@ public class BulletSpawnController : MonoBehaviour {
 	public GameObject bulletPrefab;
 	public float rate = .15f;
 
+	private float resetTime = 5f;
+	private int defaultBulletCount = 1;
+	private int[] defaultBulletAngles = new int[] {0};
+
 	private float nextShotTime = 0f;
-	private int bulletCount = 1;
-	private int[] bulletAngles = new int[] {0};
+	private int bulletCount;
+	private int[] bulletAngles;
+
+	void Awake() {
+		Reset ();
+	}
+
+	public void Reset() {
+		bulletCount = defaultBulletCount;
+		bulletAngles = defaultBulletAngles;
+	}
 
 	public void SetBulletCount(int bulletCount) {
 		this.bulletCount = bulletCount;
+		Invoke ("Reset", resetTime);
 	}
 
 	public void SetBulletAngles(int[] bulletAngles) {
 		this.bulletAngles = bulletAngles;
+		Invoke ("Reset", resetTime);
 	}
 
 	void Update () {
