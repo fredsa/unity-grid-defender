@@ -7,11 +7,7 @@ public class CapsuleController : MonoBehaviour {
 
 	private int points = 1000;
 
-	void Start () {
-		GetComponent<Rigidbody> ().angularVelocity = Random.rotation.eulerAngles;
-	}
-
-	void OnTriggerEnter(Collider other) {
+	void OnTriggerEnter2D(Collider2D other) {
 		if (other.CompareTag ("Player")) {
 			GameObject pointsEarned = Instantiate(pointsEarnedPrefab, transform.position, Quaternion.identity) as GameObject;
 			var color = GetComponentInChildren<MeshRenderer> ().material.color;

@@ -5,10 +5,10 @@ public class BulletController : MonoBehaviour {
 
 	private float bulletSpeed = 40f;
 
-	private Rigidbody rb;
+	private Rigidbody2D rb;
 
 	void Start () {
-	    rb = gameObject.GetComponent<Rigidbody> ();
+	    rb = gameObject.GetComponent<Rigidbody2D> ();
 		rb.velocity = transform.up.normalized * bulletSpeed;
 	}
 

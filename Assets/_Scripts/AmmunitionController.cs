@@ -10,7 +10,7 @@ public class AmmunitionController : MonoBehaviour {
 	private float minTimeBetweenExplosions = .01f;
 	private static float nextAllowedExplosionTime = Time.time;
 
-	void OnTriggerEnter(Collider other) {
+	void OnTriggerEnter2D(Collider2D other) {
 		if (other.CompareTag ("Enemy") || other.CompareTag ("EnemyObstacle")) {
 			int points = 10;
 			Color otherColor = other.gameObject.GetComponent<MeshRenderer> ().material.color;
