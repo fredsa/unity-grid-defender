@@ -14,6 +14,11 @@ public class EnemySpawnController : MonoBehaviour {
 	private float checkRadius;
 	
 	void Start () {
+#if _DEBUG
+		timeToFirstSpawn = 0f;
+		spawnRate = 1f;
+		chainLength *= 2;
+#endif
 		InvokeRepeating ("Spawn", timeToFirstSpawn, spawnRate);
 	}
 	
@@ -29,6 +34,9 @@ public class EnemySpawnController : MonoBehaviour {
 			Color color = MakeColor (i);
 			enemy.GetComponent<MeshRenderer> ().material.color = color;
 			enemy.GetComponent<Light> ().color = color;
+#if _DEBUG
+			enemy.GetComponent<Light> ().enabled = GameController.DEBUG_ENEMY_LIGHTS_ON;
+#endif
 
 			ChainController chainController = enemy.GetComponent<ChainController> ();
 			chainController.Setup(playbox, previousEnemy, transform.right * enemySpeed);

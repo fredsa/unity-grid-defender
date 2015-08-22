@@ -24,39 +24,52 @@ public class PlayerController : MonoBehaviour {
 	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedMultiplier = .4f;
 	private Plane playerPlane;
+#if _DEBUG
+#else
 	private Animator animator;
 	private int PlayerDeathProperty = Animator.StringToHash ("PlayerDeath");
+#endif
 	private Color bonusColor;
 	private Color startingColor;
+	private BulletSpawnController bulletSpawnController;
 
 	public void SetBonusColor(Color bonusColor) {
 		this.bonusColor = bonusColor;
+#if _DEBUG
+		bulletSpawnController.SetBulletCount(5);
+		bulletSpawnController.SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
+#else
 		switch (Random.Range (0, 3)) {
 		case 0:
-			GetComponentInChildren<BulletSpawnController>().SetBulletCount(3);
-			GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {0});
+			bulletSpawnController.SetBulletCount(3);
+			bulletSpawnController.SetBulletAngles(new int[] {0});
 			break;
 		case 1:
-			GetComponentInChildren<BulletSpawnController>().SetBulletCount(2);
-			GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {-2, 0, 2});
+			bulletSpawnController.SetBulletCount(2);
+			bulletSpawnController.SetBulletAngles(new int[] {-2, 0, 2});
 			break;
 		case 2:
-			GetComponentInChildren<BulletSpawnController>().SetBulletCount(1);
-			GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {-90, 0, 90, 180});
+			bulletSpawnController.SetBulletCount(1);
+			bulletSpawnController.SetBulletAngles(new int[] {-90, 0, 90, 180});
 			break;
 		}
-//		GetComponentInChildren<BulletSpawnController>().SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
+#endif
 	}
 
 	void Start() {
+		bulletSpawnController = GetComponentInChildren<BulletSpawnController> ();
 		playerCapsule = transform.GetChild (0).gameObject;
 		playerCapsuleMaterial = playerCapsule.GetComponent<MeshRenderer> ().material;
 		playerLight = playerCapsule.GetComponent<Light> ();
 		startingColor = playerCapsuleMaterial.color;
 		bonusColor = startingColor;
-		animator = gameObject.GetComponent<Animator> ();
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		playerPlane = new Plane(Vector3.forward, transform.position);
+#if _DEBUG
+		SetBonusColor(new Color(.96f, 0f, 1f, .4f));
+#else
+		animator = gameObject.GetComponent<Animator> ();
+#endif
 	}
 
 	void Update() {
@@ -88,7 +101,10 @@ public class PlayerController : MonoBehaviour {
 				Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
 				bonusColor = startingColor;
 				FindObjectOfType<GameController>().SubtractLife();
+#if _DEBUG
+#else
 				animator.SetTrigger (PlayerDeathProperty);
+#endif
 			}
 		}
 	}

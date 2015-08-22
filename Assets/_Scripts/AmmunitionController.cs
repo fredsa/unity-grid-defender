@@ -30,6 +30,9 @@ public class AmmunitionController : MonoBehaviour {
 				otherColor *= .8f;
 				mine.GetComponentInChildren<MeshRenderer>().material.color = otherColor;
 				mine.GetComponentInChildren<Light>().color = otherColor;
+#if _DEBUG
+				mine.GetComponentInChildren<Light> ().enabled = GameController.DEBUG_ENEMY_LIGHTS_ON;
+#endif
 			}
 			
 			Destroy(other.gameObject);

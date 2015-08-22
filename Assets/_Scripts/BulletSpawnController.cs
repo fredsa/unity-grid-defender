@@ -7,8 +7,11 @@ public class BulletSpawnController : MonoBehaviour {
 	public float rate = .15f;
 
 	private float resetTime = 5f;
+#if _DEBUG
+#else
 	private int defaultBulletCount = 1;
 	private int[] defaultBulletAngles = new int[] {0};
+#endif
 
 	private float nextShotTime = 0f;
 	private int bulletCount;
@@ -19,8 +22,11 @@ public class BulletSpawnController : MonoBehaviour {
 	}
 
 	public void Reset() {
+#if _DEBUG
+#else
 		bulletCount = defaultBulletCount;
 		bulletAngles = defaultBulletAngles;
+#endif
 	}
 
 	public void SetBulletCount(int bulletCount) {
@@ -34,9 +40,12 @@ public class BulletSpawnController : MonoBehaviour {
 	}
 
 	void Update () {
+#if _DEBUG
+#else
 		if (!Input.GetMouseButton (0)) {
 			return;
 		}
+#endif
 		if (Time.time < nextShotTime) {
 			return;
 		}
