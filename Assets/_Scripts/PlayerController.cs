@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour {
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		playerPlane = new Plane(Vector3.forward, transform.position);
 #if _DEBUG
+		transform.position = new Vector3(bounds.xMin - 3f, bounds.yMax - 3f, transform.position.z);
 		SetBonusColor(new Color(.96f, 0f, 1f, .4f));
 #else
 		animator = gameObject.GetComponent<Animator> ();
@@ -87,7 +88,10 @@ public class PlayerController : MonoBehaviour {
 			targetPosition = transform.position + new Vector3(Input.GetAxisRaw ("Horizontal") * keyboardSpeedMultiplier, Input.GetAxisRaw ("Vertical") * keyboardSpeedMultiplier, 0f);
 		}
 
+#if _DEBUG
+#else
 		targetPosition = Clamp (targetPosition, bounds);
+#endif
 		transform.position = Vector3.MoveTowards(transform.position, targetPosition, maxTrackSpeed * Time.deltaTime);
 
 	}
