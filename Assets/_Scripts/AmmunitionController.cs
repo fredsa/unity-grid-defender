@@ -9,6 +9,11 @@ public class AmmunitionController : MonoBehaviour {
 
 	private float minTimeBetweenExplosions = .01f;
 	private static float nextAllowedExplosionTime = 0f;
+	private GameController gameController;
+
+	void Start() {
+		gameController = FindObjectOfType<GameController> ();
+	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.CompareTag ("Enemy") || other.CompareTag ("EnemyObstacle")) {
@@ -36,7 +41,7 @@ public class AmmunitionController : MonoBehaviour {
 			}
 			
 			Destroy(other.gameObject);
-			FindObjectOfType<GameController>().AddPoints(points);
+			gameController.AddPoints(points);
 			if (--hitPoints <= 0) {
 				Destroy(gameObject);
 			}
