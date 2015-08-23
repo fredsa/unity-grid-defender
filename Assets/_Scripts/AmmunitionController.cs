@@ -8,7 +8,7 @@ public class AmmunitionController : MonoBehaviour {
 	public int hitPoints = 3;
 
 	private float minTimeBetweenExplosions = .01f;
-	private static float nextAllowedExplosionTime = Time.time;
+	private static float nextAllowedExplosionTime = 0f;
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.CompareTag ("Enemy") || other.CompareTag ("EnemyObstacle")) {
