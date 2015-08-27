@@ -16,7 +16,7 @@ public class AmmunitionController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.CompareTag ("Enemy") || other.CompareTag ("EnemyObstacle")) {
+		if (other.CompareTag ("Enemy") || other.CompareTag ("Enemy Obstacle")) {
 			int points = 10;
 			Color otherColor = other.gameObject.GetComponent<MeshRenderer> ().material.color;
 			otherColor.a = 1f;

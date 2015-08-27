@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("EnemyObstacle")) {
+		if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("Enemy Obstacle")) {
 			Destroy(other.gameObject);
 			if (!invinsible) {
 				invinsible = true;
