@@ -7,15 +7,15 @@ public class GridTextureController : MonoBehaviour {
 
 	private Material material;
 	private Vector2 offset = new Vector2();
-	private float textureScaleX;
-	private float textureScaleY;
+//	private float textureScaleX;
+//	private float textureScaleY;
 //	private Transform playerTransform;
 
 	void Start () {
 //		playerTransform = GameObject.FindGameObjectWithTag ("Player").transform;
 		material = GetComponent<MeshRenderer> ().material;
-		textureScaleX = material.mainTextureScale.x;
-		textureScaleY = material.mainTextureScale.y;
+//		textureScaleX = material.mainTextureScale.x;
+//		textureScaleY = material.mainTextureScale.y;
 	}
 	
 	void Update () {
