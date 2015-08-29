@@ -12,7 +12,15 @@ public class CapsuleSpawnController : MonoBehaviour {
 		playbox = GameObject.FindWithTag ("Playbox");
 		InvokeRepeating ("Spawn", 3f, 10f);	
 	}
-	
+
+#if UNITY_EDITOR
+	void Update() {
+		if (Input.GetKeyDown (KeyCode.B)) {
+			Spawn();
+		}
+	}
+#endif
+
 	void Spawn () {
 		Vector3 position = new Vector3 (
 			Random.Range (-playbox.transform.localScale.x/2, playbox.transform.localScale.x/2),
