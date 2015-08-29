@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
 	
 	public GameObject playerExplosionPrefab;
 	public GameObject enemyExplosionPrefab;
+	public GameObject playerShieldPrefab;
 	public PlayerBounds bounds;
 	public Transform grid;
 	public bool invinsible = false;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour {
 	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedMultiplier = .4f;
 	private Plane playerPlane;
+	private GameObject shield;
 #if _DEBUG
 #else
 	private Animator animator;
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 		bulletSpawnController.SetBulletCount(5);
 		bulletSpawnController.SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
 #else
-		switch (Random.Range (0, 3)) {
+		switch (Random.Range (0, 4)) {
 		case 0:
 			bulletSpawnController.SetBulletCount(3);
 			bulletSpawnController.SetBulletAngles(new int[] {0});
@@ -52,8 +54,17 @@ public class PlayerController : MonoBehaviour {
 			bulletSpawnController.SetBulletCount(1);
 			bulletSpawnController.SetBulletAngles(new int[] {-90, 0, 90, 180});
 			break;
+		case 3:
+			shield = Instantiate(playerShieldPrefab, transform.position, Quaternion.identity) as GameObject;
+			shield.transform.parent = transform;
+			Invoke ("DestroyShield", 5f);
+			break;
 		}
 #endif
+	}
+
+	void DestroyShield() {
+		Destroy (shield);
 	}
 
 	void Start() {
@@ -74,7 +85,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-		playerCapsuleMaterial.color = bonusColor;
 		playerLight.color = bonusColor;
 		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
