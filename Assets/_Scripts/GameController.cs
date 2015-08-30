@@ -14,7 +14,11 @@ public class GameController : MonoBehaviour {
 
 	public void Start () {
 		scoreTextController.SetValue (0);
+#if UNITY_EDITOR
+		livesTextController.SetValue (1);
+#else
 		livesTextController.SetValue (3);
+#endif
 	}
 
 	public void AddPoints(int points) {

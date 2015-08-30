@@ -13,10 +13,12 @@ public class PlayerController : MonoBehaviour {
 	
 	public GameObject playerExplosionPrefab;
 	public GameObject playerShieldPrefab;
+	public GameObject gameOverText;
 	public PlayerBounds bounds;
 	public Transform grid;
 	public bool invinsible = false;
 
+	private GameController gameController;
 	private GameObject playerCapsule;
 	private Material playerCapsuleMaterial;
 	private Light playerLight;
@@ -28,15 +30,15 @@ public class PlayerController : MonoBehaviour {
 #if _DEBUG
 #else
 	private Animator animator;
-	private int PlayerDeathProperty = Animator.StringToHash ("PlayerDeath");
-#endif
-	private Color bonusColor;
+	private int PlayerDeathProperty = Animator.StringToHash ("Player Death");
+	private int gameOverProperty = Animator.StringToHash ("Game Over");
+	#endif
 	private Color startingColor;
 	private BulletSpawnController bulletSpawnController;
 
 	public void SetBonusColor(Color bonusColor) {
-		this.bonusColor = bonusColor;
-#if _DEBUG
+		playerLight.color = bonusColor;
+		#if _DEBUG
 		bulletSpawnController.SetBulletCount(5);
 		bulletSpawnController.SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
 #else
@@ -67,12 +69,12 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Start() {
+		gameController = FindObjectOfType<GameController> ();
 		bulletSpawnController = GetComponentInChildren<BulletSpawnController> ();
 		playerCapsule = transform.GetChild (0).gameObject;
 		playerCapsuleMaterial = playerCapsule.GetComponent<MeshRenderer> ().material;
 		playerLight = playerCapsule.GetComponent<Light> ();
 		startingColor = playerCapsuleMaterial.color;
-		bonusColor = startingColor;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		playerPlane = new Plane(Vector3.forward, transform.position);
 #if _DEBUG
@@ -83,8 +85,18 @@ public class PlayerController : MonoBehaviour {
 #endif
 	}
 
+	void SetGameOver(bool gameOver) {
+		animator.SetBool (gameOverProperty, gameOver);
+		gameOverText.SetActive (gameOver);
+		if (!gameOver) {
+			Application.LoadLevel(0);
+		}
+	}
+	
 	void Update() {
-		playerLight.color = bonusColor;
+		if (Input.GetButtonDown ("Fire1") && animator.GetBool (gameOverProperty)) {
+			SetGameOver(false);
+		}
 		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
 			Vector3 pos = Input.mousePosition;
@@ -111,11 +123,14 @@ public class PlayerController : MonoBehaviour {
 			if (!invinsible) {
 				invinsible = true;
 				Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
-				bonusColor = startingColor;
-				FindObjectOfType<GameController>().SubtractLife();
+				playerLight.color = startingColor;
 #if _DEBUG
 #else
-				animator.SetTrigger (PlayerDeathProperty);
+				if (gameController.SubtractLife() == 0) {
+					SetGameOver(true);
+				} else {
+					animator.SetTrigger (PlayerDeathProperty);
+				}
 #endif
 			}
 		}
