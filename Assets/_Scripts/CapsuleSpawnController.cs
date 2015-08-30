@@ -10,29 +10,16 @@ public class CapsuleSpawnController : MonoBehaviour {
 
 	void Start () {
 		playbox = GameObject.FindWithTag ("Playbox");
-		InvokeRepeating ("Spawn", 3f, 10f);	
 	}
 
-#if UNITY_EDITOR
-	void Update() {
-		if (Input.GetKeyDown (KeyCode.B)) {
-			Spawn();
-		}
-	}
-#endif
-
-	void Spawn () {
+	public void Spawn (int bonusId, Color color) {
 		Vector3 position = new Vector3 (
 			Random.Range (-playbox.transform.localScale.x/2, playbox.transform.localScale.x/2),
 			playbox.transform.localScale.y/2 + transform.localScale.y * 2,
 			0);
-		Color color = new Color (
-			Random.Range (.2f, .6f),
-			Random.Range (.2f, .6f),
-			Random.Range (.2f, .6f),
-			1f);
 		capsule = Instantiate (capsulePrefab, position, Quaternion.identity) as GameObject;
 		capsule.GetComponentInChildren<MeshRenderer> ().material.color = color;
+		capsule.GetComponentInChildren<CapsuleController> ().bonusId = bonusId;
 
 		color.a = .5f;
 		capsule.GetComponentInChildren<Light>().color = color;

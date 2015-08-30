@@ -11,8 +11,8 @@ public class PlayerBounds {
 
 public class PlayerController : MonoBehaviour {
 	
+	public GameObject playerCapsule;
 	public GameObject playerExplosionPrefab;
-	public GameObject playerShieldPrefab;
 	public GameObject gameOverText;
 	public GameObject startButton;
 	public PlayerBounds bounds;
@@ -20,62 +20,25 @@ public class PlayerController : MonoBehaviour {
 	public bool invinsible = false;
 
 	private GameController gameController;
-	private GameObject playerCapsule;
-	private Material playerCapsuleMaterial;
-	private Light playerLight;
+	private BonusController bonusController;
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedMultiplier = .4f;
 	private Plane playerPlane;
-	private GameObject shield;
 #if _DEBUG
 #else
 	private Animator animator;
 	private int PlayerDeathProperty = Animator.StringToHash ("Player Death");
 	private int gameOverProperty = Animator.StringToHash ("Game Over");
-	#endif
-	private Color startingColor;
-	private BulletSpawnController bulletSpawnController;
-
-	public void SetBonusColor(Color bonusColor) {
-		playerLight.color = bonusColor;
-		#if _DEBUG
-		bulletSpawnController.SetBulletCount(5);
-		bulletSpawnController.SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
-#else
-		switch (Random.Range (0, 4)) {
-		case 0:
-			bulletSpawnController.SetBulletCount(3);
-			bulletSpawnController.SetBulletAngles(new int[] {0});
-			break;
-		case 1:
-			bulletSpawnController.SetBulletCount(2);
-			bulletSpawnController.SetBulletAngles(new int[] {-2, 0, 2});
-			break;
-		case 2:
-			bulletSpawnController.SetBulletCount(1);
-			bulletSpawnController.SetBulletAngles(new int[] {-90, 0, 90, 180});
-			break;
-		case 3:
-			shield = Instantiate(playerShieldPrefab, transform.position, Quaternion.identity) as GameObject;
-			shield.transform.parent = transform;
-			Invoke ("DestroyShield", 5f);
-			break;
-		}
 #endif
-	}
 
-	void DestroyShield() {
-		Destroy (shield);
+	public void SetBonus(int bonus) {
+		bonusController.SetBonus (bonus);
 	}
 
 	void Start() {
+		bonusController = FindObjectOfType<BonusController> ();
 		gameController = FindObjectOfType<GameController> ();
-		bulletSpawnController = GetComponentInChildren<BulletSpawnController> ();
-		playerCapsule = transform.GetChild (0).gameObject;
-		playerCapsuleMaterial = playerCapsule.GetComponent<MeshRenderer> ().material;
-		playerLight = playerCapsule.GetComponent<Light> ();
-		startingColor = playerCapsuleMaterial.color;
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		playerPlane = new Plane(Vector3.forward, transform.position);
 #if _DEBUG
@@ -123,7 +86,7 @@ public class PlayerController : MonoBehaviour {
 			if (!invinsible) {
 				invinsible = true;
 				Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
-				playerLight.color = startingColor;
+				bonusController.SetBonus(0);
 #if _DEBUG
 #else
 				if (gameController.SubtractLife() == 0) {
