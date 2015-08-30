@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject playerExplosionPrefab;
 	public GameObject playerShieldPrefab;
 	public GameObject gameOverText;
+	public GameObject startButton;
 	public PlayerBounds bounds;
 	public Transform grid;
 	public bool invinsible = false;
@@ -85,18 +86,17 @@ public class PlayerController : MonoBehaviour {
 #endif
 	}
 
-	void SetGameOver(bool gameOver) {
-		animator.SetBool (gameOverProperty, gameOver);
-		gameOverText.SetActive (gameOver);
-		if (!gameOver) {
+	public void SetGameOver(bool gameOver) {
+		if (gameOver) {
+			animator.SetBool (gameOverProperty, gameOver);
+			gameOverText.SetActive (gameOver);
+			startButton.SetActive(gameOver);
+		} else {
 			Application.LoadLevel(0);
 		}
 	}
 	
 	void Update() {
-		if (Input.GetButtonDown ("Fire1") && animator.GetBool (gameOverProperty)) {
-			SetGameOver(false);
-		}
 		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
 			Vector3 pos = Input.mousePosition;
