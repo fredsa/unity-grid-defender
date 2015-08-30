@@ -81,21 +81,23 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag ("Enemy") || other.gameObject.CompareTag ("Enemy Obstacle")) {
-			Destroy(other.gameObject);
-			if (!invinsible) {
-				invinsible = true;
-				Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
-				bonusController.SetBonus(0);
+		Debug.Assert(other.CompareTag ("Enemy") || other.CompareTag ("Enemy Obstacle") || other.CompareTag ("Bonus"), other.gameObject.name);
+		if (other.CompareTag ("Bonus")) {
+			return;
+		}
+		Destroy(other.gameObject);
+		if (!invinsible) {
+			invinsible = true;
+			Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
+			bonusController.SetBonus(0);
 #if _DEBUG
 #else
-				if (gameController.SubtractLife() == 0) {
-					SetGameOver(true);
-				} else {
-					animator.SetTrigger (PlayerDeathProperty);
-				}
-#endif
+			if (gameController.SubtractLife() == 0) {
+				SetGameOver(true);
+			} else {
+				animator.SetTrigger (PlayerDeathProperty);
 			}
+#endif
 		}
 	}
 

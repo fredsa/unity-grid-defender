@@ -14,9 +14,7 @@ public class CapsuleController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-#if UNITY_EDITOR
 		Debug.Assert(other.CompareTag ("Player"), other.gameObject.name);
-#endif
 		GameObject pointsEarned = Instantiate(pointsEarnedPrefab, transform.position, Quaternion.identity) as GameObject;
 		var color = GetComponentInChildren<MeshRenderer> ().material.color;
 		other.GetComponent<PlayerController>().SetBonus(bonusId);

@@ -11,5 +11,8 @@
 # Android build output
 *.apk
 
+# OSX build output
+GridDefender.app/
+
 # WebGL build output
 /HornetBlastWebGL/
