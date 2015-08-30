@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour {
 	public CanvasTextController scoreTextController;
 	public CanvasTextController livesTextController;
 
-	public void Start () {
+	void Start () {
 		scoreTextController.SetValue (0);
 #if UNITY_EDITOR
 		livesTextController.SetValue (1);
