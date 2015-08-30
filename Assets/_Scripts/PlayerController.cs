@@ -12,7 +12,6 @@ public class PlayerBounds {
 public class PlayerController : MonoBehaviour {
 	
 	public GameObject playerExplosionPrefab;
-	public GameObject enemyExplosionPrefab;
 	public GameObject playerShieldPrefab;
 	public PlayerBounds bounds;
 	public Transform grid;
@@ -111,7 +110,6 @@ public class PlayerController : MonoBehaviour {
 			Destroy(other.gameObject);
 			if (!invinsible) {
 				invinsible = true;
-				Instantiate(enemyExplosionPrefab, transform.position, Quaternion.identity);
 				Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
 				bonusColor = startingColor;
 				FindObjectOfType<GameController>().SubtractLife();
