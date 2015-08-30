@@ -42,7 +42,7 @@ public class BulletSpawnController : MonoBehaviour {
 	void Update () {
 #if _DEBUG
 #else
-		if (!Input.GetMouseButton (0)) {
+		if (!Input.GetButton("Fire1")) {
 			return;
 		}
 #endif
