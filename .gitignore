@@ -9,10 +9,10 @@
 /Library/
 
 # Android build output
-*.apk
+/*.apk
 
 # OSX build output
-GridDefender.app/
+/*.app/
 
 # WebGL build output
-/HornetBlastWebGL/
+/.*WebGL/
