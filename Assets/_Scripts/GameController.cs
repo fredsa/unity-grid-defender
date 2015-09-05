@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			DEBUG_ENEMY_LIGHTS_ON = !DEBUG_ENEMY_LIGHTS_ON;
 			UpdateLights (GameObject.FindGameObjectsWithTag ("Enemy"));
-			UpdateLights (GameObject.FindGameObjectsWithTag ("EnemyObstacle"));
+			UpdateLights (GameObject.FindGameObjectsWithTag ("Enemy Obstacle"));
 		}
 	}
 #endif

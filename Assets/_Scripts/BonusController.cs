@@ -54,8 +54,9 @@ public class BonusController : MonoBehaviour {
 		switch (bonus) {
 		case 0:
 #if _DEBUG
-			bonusController.bulletSpawnController.SetBulletCount(5);
-			bonusController.bulletSpawnController.SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
+			shield.SetActive (true);
+			bulletSpawnController.SetBulletCount(5);
+			bulletSpawnController.SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
 #else
 			shield.SetActive (false);
 			bulletSpawnController.SetBulletCount(1);

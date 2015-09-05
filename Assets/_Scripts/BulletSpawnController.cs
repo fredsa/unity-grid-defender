@@ -8,6 +8,8 @@ public class BulletSpawnController : MonoBehaviour {
 
 	private float resetTime = 5f;
 #if _DEBUG
+	private int defaultBulletCount = 2;
+	private int[] defaultBulletAngles = new int[] {-3, 3};
 #else
 	private int defaultBulletCount = 1;
 	private int[] defaultBulletAngles = new int[] {0};
@@ -22,11 +24,8 @@ public class BulletSpawnController : MonoBehaviour {
 	}
 
 	public void Reset() {
-#if _DEBUG
-#else
 		bulletCount = defaultBulletCount;
 		bulletAngles = defaultBulletAngles;
-#endif
 	}
 
 	public void SetBulletCount(int bulletCount) {

@@ -25,11 +25,11 @@ public class PlayerController : MonoBehaviour {
 	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedMultiplier = .4f;
 	private Plane playerPlane;
+	private Animator animator;
+	private int gameOverProperty = Animator.StringToHash ("Game Over");
 #if _DEBUG
 #else
-	private Animator animator;
-	private int PlayerDeathProperty = Animator.StringToHash ("Player Death");
-	private int gameOverProperty = Animator.StringToHash ("Game Over");
+	private int playerDeathProperty = Animator.StringToHash ("Player Death");
 #endif
 
 	public void SetBonus(int bonus) {
@@ -43,10 +43,8 @@ public class PlayerController : MonoBehaviour {
 		playerPlane = new Plane(Vector3.forward, transform.position);
 #if _DEBUG
 		transform.position = new Vector3(bounds.xMin - 3f, bounds.yMax - 3f, transform.position.z);
-		SetBonusColor(new Color(.96f, 0f, 1f, .4f));
-#else
-		animator = gameObject.GetComponent<Animator> ();
 #endif
+		animator = gameObject.GetComponent<Animator> ();
 	}
 
 	public void SetGameOver(bool gameOver) {
@@ -95,7 +93,7 @@ public class PlayerController : MonoBehaviour {
 			if (gameController.SubtractLife() == 0) {
 				SetGameOver(true);
 			} else {
-				animator.SetTrigger (PlayerDeathProperty);
+				animator.SetTrigger (playerDeathProperty);
 			}
 #endif
 		}
