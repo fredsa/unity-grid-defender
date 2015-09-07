@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour {
 	public Transform grid;
 	public bool invinsible = false;
 
-	private GameController gameController;
 	private BonusController bonusController;
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
@@ -29,6 +28,7 @@ public class PlayerController : MonoBehaviour {
 	private int gameOverProperty = Animator.StringToHash ("Game Over");
 #if _DEBUG
 #else
+	private GameController gameController;
 	private int playerDeathProperty = Animator.StringToHash ("Player Death");
 #endif
 
@@ -38,7 +38,10 @@ public class PlayerController : MonoBehaviour {
 
 	void Start() {
 		bonusController = FindObjectOfType<BonusController> ();
+#if _DEBUG
+#else
 		gameController = FindObjectOfType<GameController> ();
+#endif
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		playerPlane = new Plane(Vector3.forward, transform.position);
 #if _DEBUG
