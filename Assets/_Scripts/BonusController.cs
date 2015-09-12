@@ -28,10 +28,10 @@ public class BonusController : MonoBehaviour {
 		InvokeRepeating ("Spawn", 3f, 10f);	
 		colors = new Color[] {
 			playerCapsuleMaterial.color,
-			Color.red,
-			Color.green,
-			Color.magenta,
-			Color.blue,
+			new Color (1f, 0f, 0f, .5f),
+			new Color (0f, .6f, 0f, .4f),
+			new Color (.8f, 0f, .8f, .4f),
+			new Color (0f, 0f, .8f, .5f),
 		};
 	}
 
