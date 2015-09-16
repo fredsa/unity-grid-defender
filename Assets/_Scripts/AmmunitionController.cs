@@ -21,7 +21,7 @@ public class AmmunitionController : MonoBehaviour {
 			return;
 		}
 		int points = 10;
-		Color otherColor = other.gameObject.GetComponent<MeshRenderer> ().material.color;
+		Color otherColor = other.transform.GetChild(0).gameObject.GetComponent<MeshRenderer> ().material.color;
 		otherColor.a = 1f;
 
 		if (Time.time > nextAllowedExplosionTime) {
@@ -36,11 +36,8 @@ public class AmmunitionController : MonoBehaviour {
 			GameObject mine = Instantiate(minePrefab, other.transform.position, Quaternion.identity) as GameObject;
 			mine.transform.parent = other.transform.parent;
 			otherColor *= .8f;
-			mine.GetComponentInChildren<MeshRenderer>().material.color = otherColor;
-			mine.GetComponentInChildren<Light>().color = otherColor;
-#if _DEBUG
-			mine.GetComponentInChildren<Light> ().enabled = GameController.DEBUG_ENEMY_LIGHTS_ON;
-#endif
+			mine.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = otherColor;
+			mine.transform.GetChild(1).GetComponent<MeshRenderer>().material.SetColor("_TintColor", otherColor);
 		}
 		
 		Destroy(other.gameObject);

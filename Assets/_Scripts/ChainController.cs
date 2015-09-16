@@ -14,6 +14,7 @@ public class ChainController : MonoBehaviour {
 	private float velocityMagnitude;
 	private float xMax;
 	private float yMax;
+	private bool glowActivate = true;
 
 	public void Setup (GameObject playbox, GameObject target, Vector3 velocity) {
 		this.target = target;
@@ -24,9 +25,15 @@ public class ChainController : MonoBehaviour {
 		yMax = playbox.transform.localScale.y / 2;// - velocityMagnitude * Time.fixedDeltaTime;
 	}
 
+	void SetGlowActive(bool glowActivate) {
+		transform.GetChild(1).gameObject.SetActive(glowActivate);
+		this.glowActivate = glowActivate;
+	}
+
 	void Start () {
 		if (target) {
 			retargetTime = Time.time;
+			SetGlowActive(false);
 		} else {
 			transform.position = CalculateNewPos();
 			retargetTime = Time.time + timeToFirstHeadMove;
@@ -41,6 +48,9 @@ public class ChainController : MonoBehaviour {
 		if (target) {
 			Vector3 diff = target.transform.position - transform.position;
 			if (diff.magnitude > desiredDistance) {
+				if (!glowActivate) {
+					SetGlowActive(true);
+				}
 				transform.position = target.transform.position - (diff.normalized * desiredDistance);
 			}
 		} else {
