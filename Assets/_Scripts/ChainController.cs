@@ -20,8 +20,8 @@ public class ChainController : MonoBehaviour {
 		hasEnteredPlaybox = target != null;
 		this.velocity = velocity;
 		velocityMagnitude = velocity.magnitude;
-		xMax = playbox.transform.localScale.x / 2 - velocityMagnitude * Time.fixedDeltaTime;
-		yMax = playbox.transform.localScale.y / 2 - velocityMagnitude * Time.fixedDeltaTime;
+		xMax = playbox.transform.localScale.x / 2;// - velocityMagnitude * Time.fixedDeltaTime;
+		yMax = playbox.transform.localScale.y / 2;// - velocityMagnitude * Time.fixedDeltaTime;
 	}
 
 	void Start () {
