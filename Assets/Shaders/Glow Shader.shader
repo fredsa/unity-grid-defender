@@ -1,6 +1,6 @@
 ﻿Shader "Custom/Glow Shader" {
     Properties {
-        _MainTex ("Texture (alpha)", 2D) = "white" {}
+        _MainTex ("Texture (A)", 2D) = "white" {}
         _Color ("Tint", color) = (1, 1, 1, 1)
         _Intensity ("Intensity", float) = 1
     }
