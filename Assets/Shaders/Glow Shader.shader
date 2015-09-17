@@ -1,7 +1,7 @@
 ﻿Shader "Custom/Glow Shader" {
     Properties {
         _MainTex ("Texture (alpha)", 2D) = "white" {}
-        _TintColor ("Tint", color) = (1, 1, 1, 1)
+        _Color ("Tint", color) = (1, 1, 1, 1)
         _Intensity ("Intensity", float) = 1
     }
     SubShader {
@@ -50,7 +50,7 @@
 			#include "UnityCG.cginc"
 
 			uniform sampler2D _MainTex;
-			uniform float4 _TintColor;
+			uniform float4 _Color;
 			uniform float _Intensity;
 
 	      	      
@@ -82,7 +82,7 @@
 
 			fixed4 frag (v2f i) : SV_Target {
 				fixed4 texcol = tex2D(_MainTex, i.texcoord0);
-				texcol *= _TintColor;
+				texcol *= _Color;
 				texcol.a *= _Intensity;
 				return texcol;
 			}

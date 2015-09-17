@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		scoreTextController.SetValue (0);
 #if UNITY_EDITOR
-		livesTextController.SetValue (1);
+		livesTextController.SetValue (2);
 #else
 		livesTextController.SetValue (3);
 #endif

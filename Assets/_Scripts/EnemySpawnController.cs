@@ -35,7 +35,7 @@ public class EnemySpawnController : MonoBehaviour {
 			GameObject disc = enemy.transform.GetChild(0).gameObject;
 			GameObject glow = enemy.transform.GetChild(1).gameObject;
 			disc.GetComponent<MeshRenderer> ().material.color = color;
-			glow.GetComponent<MeshRenderer> ().material.SetColor("_TintColor", color);
+			glow.GetComponent<MeshRenderer> ().material.color = color;
 
 			ChainController chainController = enemy.GetComponent<ChainController> ();
 			chainController.Setup(playbox, previousEnemy, transform.right * enemySpeed);

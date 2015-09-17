@@ -33,6 +33,8 @@ public class BonusController : MonoBehaviour {
 			new Color (.8f, 0f, .8f, .6f),
 			new Color (.1f, .1f, .7f, .9f),
 		};
+		// ensure color & glow are reset
+		SetBonus (0);
 	}
 
 	#if UNITY_EDITOR
@@ -51,7 +53,7 @@ public class BonusController : MonoBehaviour {
 	public void SetBonus(int bonus) {
 //		colors [bonus].a = 1;
 		playerCapsuleMaterial.color = colors [bonus];	
-		playerGlowMaterial.SetColor("_TintColor", colors[bonus]);
+		playerGlowMaterial.color = colors[bonus];
 		playerGlowMaterial.SetFloat("_Intensity", 1f);
 		switch (bonus) {
 		case 0:

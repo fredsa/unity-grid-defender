@@ -37,7 +37,7 @@ public class AmmunitionController : MonoBehaviour {
 			mine.transform.parent = other.transform.parent;
 			otherColor *= .8f;
 			mine.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = otherColor;
-			mine.transform.GetChild(1).GetComponent<MeshRenderer>().material.SetColor("_TintColor", otherColor);
+			mine.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = otherColor;
 		}
 		
 		Destroy(other.gameObject);
