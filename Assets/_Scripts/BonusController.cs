@@ -9,7 +9,7 @@ public class BonusController : MonoBehaviour {
 	
 	private BulletSpawnController bulletSpawnController;
 	private GameObject shield;
-	private Light playerLight;
+	private Material playerGlowMaterial;
 	private Material playerCapsuleMaterial;
 	private Color color;
 	private Color[] colors;
@@ -23,15 +23,15 @@ public class BonusController : MonoBehaviour {
 		shield = Instantiate(playerShieldPrefab, transform.position, Quaternion.identity) as GameObject;
 		shield.SetActive (false);
 		bulletSpawnController = GetComponentInChildren<BulletSpawnController> ();
-		playerLight = playerCapsule.GetComponent<Light> ();
+		playerGlowMaterial = playerCapsule.transform.GetChild(0).GetComponent<MeshRenderer>().material;
 		playerCapsuleMaterial = playerCapsule.GetComponent<MeshRenderer> ().material;
 		InvokeRepeating ("Spawn", 3f, 10f);	
 		colors = new Color[] {
 			playerCapsuleMaterial.color,
-			new Color (1f, 0f, 0f, .5f),
-			new Color (0f, .6f, 0f, .4f),
-			new Color (.8f, 0f, .8f, .4f),
-			new Color (0f, 0f, .8f, .5f),
+			new Color (1f, 0f, 0f, .7f),
+			new Color (0f, .6f, 0f, .6f),
+			new Color (.8f, 0f, .8f, .6f),
+			new Color (.1f, .1f, .7f, .9f),
 		};
 	}
 
@@ -49,8 +49,10 @@ public class BonusController : MonoBehaviour {
 	}
 
 	public void SetBonus(int bonus) {
-		playerLight.color = colors[bonus];
+//		colors [bonus].a = 1;
 		playerCapsuleMaterial.color = colors [bonus];	
+		playerGlowMaterial.SetColor("_TintColor", colors[bonus]);
+		playerGlowMaterial.SetFloat("_Intensity", 1f);
 		switch (bonus) {
 		case 0:
 #if _DEBUG
