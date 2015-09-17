@@ -12,6 +12,7 @@
     	
     	Pass {
 //    		Tags { "LightMode" = "ForwardBase" }
+    		ZWrite off
     		
             // BlendOp BlendOp
             // 
