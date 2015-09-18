@@ -42,6 +42,9 @@ public class BonusController : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.B)) {
 			Spawn();
 		}
+		if (Input.GetKeyDown (KeyCode.Alpha0)) {
+			Application.LoadLevel(0);
+		}
 	}
 	#endif
 
