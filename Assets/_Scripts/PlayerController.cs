@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform grid;
 	public bool invinsible = false;
 
+	private AudioSource gameOverAudioSource;
 	private BonusController bonusController;
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Start() {
+		gameOverAudioSource = gameObject.GetComponent<AudioSource> ();
 		bonusController = FindObjectOfType<BonusController> ();
 #if _DEBUG
 #else
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 			animator.SetBool (gameOverProperty, gameOver);
 			gameOverText.SetActive (gameOver);
 			startButton.SetActive(gameOver);
+			gameOverAudioSource.Play();
 		} else {
 			Application.LoadLevel(0);
 		}
