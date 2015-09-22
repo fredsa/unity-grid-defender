@@ -8,7 +8,7 @@ public class BonusController : MonoBehaviour {
 	public CapsuleSpawnController capsuleSpawnController;
 	
 	private BulletSpawnController bulletSpawnController;
-	private GameObject shield;
+	private GameObject playerShield;
 	private Material playerGlowMaterial;
 	private Material playerCapsuleMaterial;
 	private Color color;
@@ -20,8 +20,8 @@ public class BonusController : MonoBehaviour {
 	private static int[] angles2 = new int[] {-90, 0, 90, 180};
 	
 	void Start() {
-		shield = Instantiate(playerShieldPrefab, transform.position, Quaternion.identity) as GameObject;
-		shield.SetActive (false);
+		playerShield = Instantiate(playerShieldPrefab);
+		playerShield.transform.parent = transform;
 		bulletSpawnController = GetComponentInChildren<BulletSpawnController> ();
 		playerGlowMaterial = playerCapsule.transform.GetChild(0).GetComponent<MeshRenderer>().material;
 		playerCapsuleMaterial = playerCapsule.GetComponent<MeshRenderer> ().material;
@@ -63,7 +63,7 @@ public class BonusController : MonoBehaviour {
 			bulletSpawnController.SetBulletCount(5);
 			bulletSpawnController.SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
 #else
-			shield.SetActive (false);
+			playerShield.SetActive (false);
 			bulletSpawnController.SetBulletCount(1);
 			bulletSpawnController.SetBulletAngles(angles0);
 #endif
@@ -81,8 +81,7 @@ public class BonusController : MonoBehaviour {
 			bulletSpawnController.SetBulletAngles(angles2);
 			break;
 		case 4:
-			shield = Instantiate(playerShieldPrefab, transform.position, Quaternion.identity) as GameObject;
-			shield.transform.parent = transform;
+			playerShield.SetActive(true);
 			break;
 		}
 		if (bonus != 0) {
