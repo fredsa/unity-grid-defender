@@ -7,14 +7,6 @@ public class BulletSpawnController : MonoBehaviour {
 	public Transform bulletHolder;
 	public float rate = .15f;
 
-#if _DEBUG
-	private int defaultBulletCount = 2;
-	private int[] defaultBulletAngles = new int[] {-3, 3};
-#else
-	private int defaultBulletCount = 1;
-	private int[] defaultBulletAngles = new int[] {0};
-#endif
-
 	private float nextShotTime = 0f;
 	private int bulletCount;
 	private int[] bulletAngles;
