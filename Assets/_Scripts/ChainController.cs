@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChainController : MonoBehaviour {
+public class ChainController : MonoBehaviour
+{
 	
 	float timeToFirstHeadMove = 1f;
 	float timeBetweenHeadMoves = .8f;
@@ -16,7 +17,8 @@ public class ChainController : MonoBehaviour {
 	private float yMax;
 	private bool glowActivate = true;
 
-	public void Setup (GameObject playbox, GameObject target, Vector3 velocity) {
+	public void Setup (GameObject playbox, GameObject target, Vector3 velocity)
+	{
 		this.target = target;
 		hasEnteredPlaybox = target != null;
 		this.velocity = velocity;
@@ -25,31 +27,35 @@ public class ChainController : MonoBehaviour {
 		yMax = playbox.transform.localScale.y / 2;// - velocityMagnitude * Time.fixedDeltaTime;
 	}
 
-	void SetGlowActive(bool glowActivate) {
-		transform.GetChild(1).gameObject.SetActive(glowActivate);
+	void SetGlowActive (bool glowActivate)
+	{
+		transform.GetChild (1).gameObject.SetActive (glowActivate);
 		this.glowActivate = glowActivate;
 	}
 
-	void Start () {
+	void Start ()
+	{
 		if (target) {
 			retargetTime = Time.time;
-			SetGlowActive(false);
+			SetGlowActive (false);
 		} else {
-			transform.position = CalculateNewPos();
+			transform.position = CalculateNewPos ();
 			retargetTime = Time.time + timeToFirstHeadMove;
 		}
 	}
 
-	void Turn(float degrees) {
-		velocity = Quaternion.Euler(0, 0, degrees) * velocity;
+	void Turn (float degrees)
+	{
+		velocity = Quaternion.Euler (0, 0, degrees) * velocity;
 	}
 
-	void FixedUpdate () {
+	void FixedUpdate ()
+	{
 		if (target) {
 			Vector3 diff = target.transform.position - transform.position;
 			if (diff.magnitude > desiredDistance) {
 				if (!glowActivate) {
-					SetGlowActive(true);
+					SetGlowActive (true);
 				}
 				transform.position = target.transform.position - (diff.normalized * desiredDistance);
 			}
@@ -63,7 +69,8 @@ public class ChainController : MonoBehaviour {
 		}
 	}
 
-	Vector3 CalculateNewPos () {
+	Vector3 CalculateNewPos ()
+	{
 		Vector3 newPos = transform.position + velocity * Time.deltaTime;
 		if (!hasEnteredPlaybox && newPos.x >= -xMax && newPos.x <= xMax && newPos.y >= -yMax && newPos.y <= yMax) {
 			hasEnteredPlaybox = true;
@@ -72,26 +79,27 @@ public class ChainController : MonoBehaviour {
 			if (newPos.x < -xMax) {
 				newPos.x = -xMax;
 				velocity.x = velocityMagnitude;
-				velocity.y = velocityMagnitude * Random.Range(-1f, 1f);
+				velocity.y = velocityMagnitude * Random.Range (-1f, 1f);
 			} else if (newPos.x > xMax) {
 				newPos.x = xMax;
 				velocity.x = -velocityMagnitude;
-				velocity.y = velocityMagnitude * Random.Range(-1f, 1f);
+				velocity.y = velocityMagnitude * Random.Range (-1f, 1f);
 			}
 			if (newPos.y < -yMax) {
 				newPos.y = -yMax;
-				velocity.x = velocityMagnitude * Random.Range(-1f, 1f);
+				velocity.x = velocityMagnitude * Random.Range (-1f, 1f);
 				velocity.y = velocityMagnitude;
 			} else if (newPos.y > yMax) {
 				newPos.y = yMax;
-				velocity.x = velocityMagnitude * Random.Range(-1f, 1f);
+				velocity.x = velocityMagnitude * Random.Range (-1f, 1f);
 				velocity.y = -velocityMagnitude;
 			}
 		}
 		return newPos;
 	}
 
-	float RandomOneOrNegativeOne () {
+	float RandomOneOrNegativeOne ()
+	{
 		return Random.value > .5f ? 1 : -1;
 	}
 }

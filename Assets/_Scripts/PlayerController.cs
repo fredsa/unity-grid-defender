@@ -2,14 +2,16 @@
 using System.Collections;
 
 [System.Serializable]
-public class PlayerBounds {
+public class PlayerBounds
+{
 	public float xMin;
 	public float xMax;
 	public float yMin;
 	public float yMax;
 }
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 	
 	public GameObject playerCapsule;
 	public GameObject playerExplosionPrefab;
@@ -35,12 +37,14 @@ public class PlayerController : MonoBehaviour {
 	private int playerDeathProperty = Animator.StringToHash ("Player Death");
 #endif
 
-	public void SetBonus(int bonus) {
+	public void SetBonus (int bonus)
+	{
 		bonusController.SetBonus (bonus);
 	}
 
-	void Start() {
-		playerShield = Instantiate(playerShieldPrefab);
+	void Start ()
+	{
+		playerShield = Instantiate (playerShieldPrefab);
 		playerShield.transform.parent = transform;
 		bonusController = FindObjectOfType<BonusController> ();
 #if _DEBUG
@@ -48,29 +52,32 @@ public class PlayerController : MonoBehaviour {
 		gameController = FindObjectOfType<GameController> ();
 #endif
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-		playerPlane = new Plane(Vector3.forward, transform.position);
+		playerPlane = new Plane (Vector3.forward, transform.position);
 #if _DEBUG
 		transform.position = new Vector3(bounds.xMin - 3f, bounds.yMax - 3f, transform.position.z);
 #endif
 		animator = gameObject.GetComponent<Animator> ();
 	}
 
-	public void SetGameOver(bool gameOver) {
+	public void SetGameOver (bool gameOver)
+	{
 		if (gameOver) {
 			animator.SetBool (gameOverProperty, gameOver);
 			gameOverText.SetActive (gameOver);
-			startButton.SetActive(gameOver);
-			gameOverAudioSource.Play();
+			startButton.SetActive (gameOver);
+			gameOverAudioSource.Play ();
 		} else {
-			Application.LoadLevel(0);
+			Application.LoadLevel (0);
 		}
 	}
 
-	public void SetShieldActive(bool active) {
+	public void SetShieldActive (bool active)
+	{
 		playerShield.SetActive (active);
 	}
 
-	void Update() {
+	void Update ()
+	{
 		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
 			Vector3 pos = Input.mousePosition;
@@ -80,30 +87,31 @@ public class PlayerController : MonoBehaviour {
 			targetPosition = ray.GetPoint (distance);
 			targetPosition.y += fingerYOffset;
 		} else {
-			targetPosition = transform.position + new Vector3(Input.GetAxisRaw ("Horizontal") * keyboardSpeedMultiplier, Input.GetAxisRaw ("Vertical") * keyboardSpeedMultiplier, 0f);
+			targetPosition = transform.position + new Vector3 (Input.GetAxisRaw ("Horizontal") * keyboardSpeedMultiplier, Input.GetAxisRaw ("Vertical") * keyboardSpeedMultiplier, 0f);
 		}
 
 #if _DEBUG
 #else
 		targetPosition = Clamp (targetPosition, bounds);
 #endif
-		transform.position = Vector3.MoveTowards(transform.position, targetPosition, maxTrackSpeed * Time.deltaTime);
+		transform.position = Vector3.MoveTowards (transform.position, targetPosition, maxTrackSpeed * Time.deltaTime);
 
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Assert(other.CompareTag ("Enemy") || other.CompareTag ("Enemy Obstacle") || other.CompareTag ("Bonus"), other.gameObject.name);
+	void OnTriggerEnter2D (Collider2D other)
+	{
+		Debug.Assert (other.CompareTag ("Enemy") || other.CompareTag ("Enemy Obstacle") || other.CompareTag ("Bonus"), other.gameObject.name);
 		if (other.CompareTag ("Bonus")) {
 			return;
 		}
-		Destroy(other.gameObject);
+		Destroy (other.gameObject);
 		if (!invinsible && !playerShield.activeSelf) {
-			Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
-			bonusController.SetBonus(0);
+			Instantiate (playerExplosionPrefab, transform.position, Quaternion.identity);
+			bonusController.SetBonus (0);
 #if _DEBUG
 #else
-			if (gameController.SubtractLife() == 0) {
-				SetGameOver(true);
+			if (gameController.SubtractLife () == 0) {
+				SetGameOver (true);
 			} else {
 				animator.SetTrigger (playerDeathProperty);
 			}
@@ -111,7 +119,8 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	private Vector3 Clamp (Vector3 pos, PlayerBounds bounds) {
+	private Vector3 Clamp (Vector3 pos, PlayerBounds bounds)
+	{
 		pos.x = Mathf.Clamp (pos.x, bounds.xMin, bounds.xMax);
 		pos.y = Mathf.Clamp (pos.y, bounds.yMin, bounds.yMax);
 		return pos;

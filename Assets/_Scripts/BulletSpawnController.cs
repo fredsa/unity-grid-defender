@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletSpawnController : MonoBehaviour {
+public class BulletSpawnController : MonoBehaviour
+{
 
 	public GameObject bulletPrefab;
 	public Transform bulletHolder;
@@ -13,27 +14,31 @@ public class BulletSpawnController : MonoBehaviour {
 	private static int MAX_BULLETS = 500;
 	private static GameObject[] bullets = new GameObject[MAX_BULLETS];
 
-	void Start() {
+	void Start ()
+	{
 		for (int i=0; i<MAX_BULLETS; i++) {
-			bullets[i] = Instantiate (bulletPrefab);
-			bullets[i].name += " " + i;
-			bullets[i].transform.SetParent(bulletHolder);
-			bullets[i].SetActive(false);
+			bullets [i] = Instantiate (bulletPrefab);
+			bullets [i].name += " " + i;
+			bullets [i].transform.SetParent (bulletHolder);
+			bullets [i].SetActive (false);
 		}
 	}
 
-	public void SetBulletCount(int bulletCount) {
+	public void SetBulletCount (int bulletCount)
+	{
 		this.bulletCount = bulletCount;
 	}
 
-	public void SetBulletAngles(int[] bulletAngles) {
+	public void SetBulletAngles (int[] bulletAngles)
+	{
 		this.bulletAngles = bulletAngles;
 	}
 
-	void Update () {
+	void Update ()
+	{
 #if _DEBUG
 #else
-		if (!Input.GetButton("Fire1")) {
+		if (!Input.GetButton ("Fire1")) {
 			return;
 		}
 #endif
@@ -44,16 +49,17 @@ public class BulletSpawnController : MonoBehaviour {
 		int bulletindex = 0;
 		for (int i=0; i<bulletAngles.Length; i++) {
 			Quaternion rotation = Quaternion.Euler (transform.rotation.eulerAngles + new Vector3 (0, 0, bulletAngles [i]));
-			FireBullet(ref bulletindex, transform.position, rotation);
+			FireBullet (ref bulletindex, transform.position, rotation);
 		}
 	}
 
-	void FireBullet(ref int bulletindex, Vector3 position, Quaternion rotation) {
-		while(bulletindex<MAX_BULLETS) {
-			if (!bullets[bulletindex].activeSelf) {
-				bullets[bulletindex].transform.position = position;
-				bullets[bulletindex].transform.rotation = rotation;
-				bullets[bulletindex].SetActive(true);
+	void FireBullet (ref int bulletindex, Vector3 position, Quaternion rotation)
+	{
+		while (bulletindex<MAX_BULLETS) {
+			if (!bullets [bulletindex].activeSelf) {
+				bullets [bulletindex].transform.position = position;
+				bullets [bulletindex].transform.rotation = rotation;
+				bullets [bulletindex].SetActive (true);
 				return;
 			}
 			bulletindex++;

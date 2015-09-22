@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TumbleController : MonoBehaviour {
+public class TumbleController : MonoBehaviour
+{
 
-	void Start () {
+	void Start ()
+	{
 		GetComponent<Rigidbody> ().angularVelocity = Random.rotation.eulerAngles;
 	}
 }
