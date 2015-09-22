@@ -20,9 +20,7 @@ public class CapsuleSpawnController : MonoBehaviour {
 		capsule = Instantiate (capsulePrefab, position, Quaternion.identity) as GameObject;
 		capsule.GetComponentInChildren<MeshRenderer> ().material.color = color;
 		capsule.GetComponentInChildren<CapsuleController> ().bonusId = bonusId;
-
-		color.a = .5f;
-		capsule.GetComponentInChildren<Light>().color = color;
+		capsule.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = color;
 		capsule.transform.parent = transform;
 	}
 }
