@@ -7,7 +7,7 @@ public class BulletController : MonoBehaviour {
 
 	private Rigidbody2D rb;
 
-	void Start () {
+	void OnEnable () {
 	    rb = gameObject.GetComponent<Rigidbody2D> ();
 		rb.velocity = transform.up.normalized * bulletSpeed;
 	}

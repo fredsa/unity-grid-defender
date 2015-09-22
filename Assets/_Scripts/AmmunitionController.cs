@@ -35,7 +35,6 @@ public class AmmunitionController : MonoBehaviour {
 		if (other.CompareTag ("Enemy")) {
 			GameObject mine = Instantiate(minePrefab, other.transform.position, Quaternion.identity) as GameObject;
 			mine.transform.parent = other.transform.parent;
-			otherColor *= .8f;
 			mine.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = otherColor;
 			mine.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = otherColor;
 		}
@@ -43,7 +42,7 @@ public class AmmunitionController : MonoBehaviour {
 		Destroy(other.gameObject);
 		gameController.AddPoints(points);
 		if (--hitPoints <= 0) {
-			Destroy(gameObject);
+			gameObject.SetActive(false);
 		}
 	}
 
