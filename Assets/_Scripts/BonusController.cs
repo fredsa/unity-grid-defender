@@ -4,11 +4,10 @@ using System.Collections;
 public class BonusController : MonoBehaviour {
 
 	public GameObject playerCapsule;
-	public GameObject playerShieldPrefab;
 	public CapsuleSpawnController capsuleSpawnController;
-	
+
+	private PlayerController playerController;
 	private BulletSpawnController bulletSpawnController;
-	private GameObject playerShield;
 	private Material playerGlowMaterial;
 	private Material playerCapsuleMaterial;
 	private Color color;
@@ -20,9 +19,8 @@ public class BonusController : MonoBehaviour {
 	private static int[] angles2 = new int[] {-90, 0, 90, 180};
 	
 	void Start() {
-		playerShield = Instantiate(playerShieldPrefab);
-		playerShield.transform.parent = transform;
 		bulletSpawnController = GetComponentInChildren<BulletSpawnController> ();
+		playerController = GetComponentInChildren<PlayerController> ();
 		playerGlowMaterial = playerCapsule.transform.GetChild(0).GetComponent<MeshRenderer>().material;
 		playerCapsuleMaterial = playerCapsule.GetComponent<MeshRenderer> ().material;
 		InvokeRepeating ("Spawn", 3f, 10f);	
@@ -59,11 +57,12 @@ public class BonusController : MonoBehaviour {
 		switch (bonus) {
 		case 0:
 #if _DEBUG
-			shield.SetActive (true);
+			playerController.SetShieldActive(true);
 			bulletSpawnController.SetBulletCount(5);
 			bulletSpawnController.SetBulletAngles(new int[] {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5});
 #else
-			playerShield.SetActive (false);
+			playerController.SetShieldActive(false);
+
 			bulletSpawnController.SetBulletCount(1);
 			bulletSpawnController.SetBulletAngles(angles0);
 #endif
@@ -81,7 +80,7 @@ public class BonusController : MonoBehaviour {
 			bulletSpawnController.SetBulletAngles(angles2);
 			break;
 		case 4:
-			playerShield.SetActive(true);
+			playerController.SetShieldActive(true);
 			break;
 		}
 		if (bonus != 0) {
@@ -90,7 +89,7 @@ public class BonusController : MonoBehaviour {
 			Invoke ("DeactivateBonus", bonusDuration);
 		}
 	}
-	
+
 	void DeactivateBonus() {
 		if (Time.time >= bousDeactivationTime) {
 			SetBonus (0);

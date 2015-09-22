@@ -13,14 +13,16 @@ public class PlayerController : MonoBehaviour {
 	
 	public GameObject playerCapsule;
 	public GameObject playerExplosionPrefab;
+	public GameObject playerShieldPrefab;
 	public GameObject gameOverText;
 	public GameObject startButton;
 	public AudioSource gameOverAudioSource;
 	public PlayerBounds bounds;
 	public Transform grid;
-	public bool invinsible = false;
+	public bool invinsible; // controlled by animator
 
 	private BonusController bonusController;
+	private GameObject playerShield;
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedMultiplier = .4f;
@@ -38,6 +40,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Start() {
+		playerShield = Instantiate(playerShieldPrefab);
+		playerShield.transform.parent = transform;
 		bonusController = FindObjectOfType<BonusController> ();
 #if _DEBUG
 #else
@@ -61,7 +65,11 @@ public class PlayerController : MonoBehaviour {
 			Application.LoadLevel(0);
 		}
 	}
-	
+
+	public void SetShieldActive(bool active) {
+		playerShield.SetActive (active);
+	}
+
 	void Update() {
 		Vector3 targetPosition;
 		if (Input.GetMouseButton (0)) {
@@ -89,8 +97,7 @@ public class PlayerController : MonoBehaviour {
 			return;
 		}
 		Destroy(other.gameObject);
-		if (!invinsible) {
-			invinsible = true;
+		if (!invinsible && !playerShield.activeSelf) {
 			Instantiate(playerExplosionPrefab, transform.position, Quaternion.identity);
 			bonusController.SetBonus(0);
 #if _DEBUG
