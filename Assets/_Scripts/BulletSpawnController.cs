@@ -7,7 +7,6 @@ public class BulletSpawnController : MonoBehaviour {
 	public Transform bulletHolder;
 	public float rate = .15f;
 
-	private float resetTime = 5f;
 #if _DEBUG
 	private int defaultBulletCount = 2;
 	private int[] defaultBulletAngles = new int[] {-3, 3};
@@ -22,10 +21,6 @@ public class BulletSpawnController : MonoBehaviour {
 	private static int MAX_BULLETS = 500;
 	private static GameObject[] bullets = new GameObject[MAX_BULLETS];
 
-	void Awake() {
-		Reset ();
-	}
-
 	void Start() {
 		for (int i=0; i<MAX_BULLETS; i++) {
 			bullets[i] = Instantiate (bulletPrefab);
@@ -35,19 +30,12 @@ public class BulletSpawnController : MonoBehaviour {
 		}
 	}
 
-	public void Reset() {
-		bulletCount = defaultBulletCount;
-		bulletAngles = defaultBulletAngles;
-	}
-
 	public void SetBulletCount(int bulletCount) {
 		this.bulletCount = bulletCount;
-		Invoke ("Reset", resetTime);
 	}
 
 	public void SetBulletAngles(int[] bulletAngles) {
 		this.bulletAngles = bulletAngles;
-		Invoke ("Reset", resetTime);
 	}
 
 	void Update () {
