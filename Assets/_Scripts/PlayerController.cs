@@ -15,11 +15,11 @@ public class PlayerController : MonoBehaviour {
 	public GameObject playerExplosionPrefab;
 	public GameObject gameOverText;
 	public GameObject startButton;
+	public AudioSource gameOverAudioSource;
 	public PlayerBounds bounds;
 	public Transform grid;
 	public bool invinsible = false;
 
-	private AudioSource gameOverAudioSource;
 	private BonusController bonusController;
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Start() {
-		gameOverAudioSource = gameObject.GetComponent<AudioSource> ();
 		bonusController = FindObjectOfType<BonusController> ();
 #if _DEBUG
 #else
