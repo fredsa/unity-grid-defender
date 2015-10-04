@@ -5,7 +5,7 @@ public class DelayedDropController : MonoBehaviour
 {
 
 	public float delay = 0f;
-	public float speed = .2f;
+	public float speed = 10f;
 	bool isDropping = false;
 
 	void Start ()
@@ -21,7 +21,7 @@ public class DelayedDropController : MonoBehaviour
 	void FixedUpdate ()
 	{
 		if (isDropping) {
-			transform.position += new Vector3 (0f, -speed, 0f);
+			transform.position += new Vector3 (0f, -speed * Time.deltaTime, 0f);
 		}
 	}
 }
