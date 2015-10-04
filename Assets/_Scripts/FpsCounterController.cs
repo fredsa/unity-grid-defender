@@ -13,7 +13,11 @@ public class FpsCounterController : MonoBehaviour
 		
 	void Awake ()
 	{
+#if _DEBUG || UNITY_EDITOR || DEVELOPMENT_BUILD  
 		text = GetComponent<Text> ();
+#else
+		Destroy (gameObject);
+#endif		
 	}
 		
 	void Update ()

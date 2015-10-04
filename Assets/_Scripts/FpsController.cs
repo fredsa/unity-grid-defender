@@ -14,8 +14,7 @@ public class FpsController : MonoBehaviour
 	private float timeleft = updateInterval;
 	private Color color = new Color (1f, 0f, 0f, 1f);
 
-#if _DEBUG
-#else
+#if !_DEBUG && !UNITY_EDITOR && !DEVELOPMENT_BUILD  
 	void Awake ()
 	{
 		Destroy (gameObject);
