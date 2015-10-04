@@ -4,6 +4,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class FpsCounterController : MonoBehaviour
 {
+	static string FPS_FORMAT = "{0:0.} fps";
 	private static float BAD_FPS = 30f;
 	private static float GOOD_FPS = 60f;
 		
@@ -14,6 +15,7 @@ public class FpsCounterController : MonoBehaviour
 	void Awake ()
 	{
 #if _DEBUG || UNITY_EDITOR || DEVELOPMENT_BUILD  
+		QualitySettings.vSyncCount = 0;
 		text = GetComponent<Text> ();
 #else
 		Destroy (gameObject);
@@ -26,7 +28,7 @@ public class FpsCounterController : MonoBehaviour
 			float interp = Time.deltaTime / (0.5f + Time.deltaTime);
 			float currentFPS = 1.0f / Time.deltaTime;
 			fps = Mathf.Lerp (fps, currentFPS, interp);
-			text.text = string.Format ("{0:0} fps", fps);
+			text.text = string.Format (FPS_FORMAT, fps);
 			
 			// adjust red/green color
 			float fps_clamped = Mathf.Clamp (fps, BAD_FPS, GOOD_FPS);
