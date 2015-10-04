@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 	private GameObject playerShield;
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
-	private float keyboardSpeedMultiplier = .4f;
+	private float keyboardSpeedScale = 20f;
 	private Plane playerPlane;
 	private Animator animator;
 	private int gameOverProperty = Animator.StringToHash ("Game Over");
@@ -87,7 +87,8 @@ public class PlayerController : MonoBehaviour
 			targetPosition = ray.GetPoint (distance);
 			targetPosition.y += fingerYOffset;
 		} else {
-			targetPosition = transform.position + new Vector3 (Input.GetAxisRaw ("Horizontal") * keyboardSpeedMultiplier, Input.GetAxisRaw ("Vertical") * keyboardSpeedMultiplier, 0f);
+			float scale = keyboardSpeedScale * Time.deltaTime;
+			targetPosition = transform.position + new Vector3 (Input.GetAxisRaw ("Horizontal") * scale, Input.GetAxisRaw ("Vertical") * scale, 0f);
 		}
 
 #if _DEBUG
