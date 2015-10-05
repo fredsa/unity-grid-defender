@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Diagnostics;
 
 public class GameController : MonoBehaviour
 {
 
 	public CanvasTextController scoreTextController;
 	public CanvasTextController livesTextController;
+
+#if !UNITY_EDITOR
+	void Awake ()
+	{
+		Debug.Log ("Application.version: " + Application.version);
+		Debug.Log ("Application.installMode: " + Application.installMode);
+		Debug.Log ("Application.genuineCheckAvailable: " + Application.genuineCheckAvailable);
+		Debug.Log ("Application.genuine: " + Application.genuine);
+	}
+#endif
 
 	void Start ()
 	{
