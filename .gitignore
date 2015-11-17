@@ -1,18 +1,33 @@
 # OSX
 .DS_Store
 
-# Unity derived files
+# MonoDevelop
+*.userprefs
+
+# Visual Studio / MonoDevelop
 *.csproj
 *.sln
-*.userprefs
+
+# Unity derived files
 /Temp/
 /Library/
 
-# Android build output
+# Visual Studio
+/.vs/
+
+# Build output Android
 /*.apk
 
-# OSX build output
+# Build output OSX
 /*.app/
 
-# WebGL build output
+# Build output WebGL
 /.*WebGL/
+
+# Build output Windows
+/*.exe
+/*_Data/
+/player_win_x86.pdb
+/player_win_x86_s.pdb
+/player_win_development_x86.pdb
+/player_win_development_x86_s.pdb
