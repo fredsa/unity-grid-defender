@@ -21,7 +21,11 @@ public class PlayerController : MonoBehaviour
 	public AudioSource gameOverAudioSource;
 	public PlayerBounds bounds;
 	public Transform grid;
-	public bool invinsible; // controlled by animator
+
+	// controlled by animator
+	[HideInInspector]
+	public bool
+		invinsible;
 
 	private BonusController bonusController;
 	private GameObject playerShield;
