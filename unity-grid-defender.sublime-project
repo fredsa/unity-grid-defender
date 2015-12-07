@@ -1,0 +1,11 @@
+{
+	"folders":
+	[
+    {
+      "path": ".",
+      "folder_exclude_patterns": ["Library", "PlayStore", "Temp"],
+      "file_exclude_patterns": ["*.meta", "*.apk"]
+    }
+	],
+  "solution_file": "./unity-grid-defender.sln"
+}
