@@ -98,14 +98,19 @@ public class PlayerController : MonoBehaviour
 		if (other.CompareTag ("Bonus")) {
 			return;
 		}
-		Destroy (other.gameObject);
-		if (!invinsible && !playerShield.activeSelf) {
-			Instantiate (playerExplosionPrefab, transform.position, Quaternion.identity);
-			bonusController.SetBonus (0);
-			invinsible = true;
-			animator.SetTrigger (playerDeathProperty);
-			gameController.SubtractLife ();
+		if (invinsible) {
+			return;
 		}
+		Destroy (other.gameObject);
+
+		if (playerShield.activeSelf) {
+			return;
+		}
+		Instantiate (playerExplosionPrefab, transform.position, Quaternion.identity);
+		bonusController.SetBonus (0);
+		invinsible = true;
+		animator.SetTrigger (playerDeathProperty);
+		gameController.SubtractLife ();
 	}
 
 	private Vector3 Clamp (Vector3 pos, PlayerBounds bounds)
