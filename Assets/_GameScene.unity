@@ -408,6 +408,51 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!1 &630318759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 630318761}
+  - 114: {fileID: 630318760}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &630318760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 630318759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2fad1fa07a24bae8bab54eb474a893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreTextController: {fileID: 1651443820}
+  livesTextController: {fileID: 1380733845}
+  playerController: {fileID: 1638894148}
+  gameOverText: {fileID: 1092863429}
+  startButton: {fileID: 1330081384}
+  gameOverAudioSource: {fileID: 1122536042}
+--- !u!4 &630318761
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 630318759}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
 --- !u!1 &675108877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,9 +1759,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1638894148}
-        m_MethodName: SetGameOver
-        m_Mode: 6
+      - m_Target: {fileID: 630318760}
+        m_MethodName: StartPressed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2084,7 +2129,6 @@ GameObject:
   - 61: {fileID: 1638894149}
   - 95: {fileID: 1638894151}
   - 82: {fileID: 1638894153}
-  - 114: {fileID: 1638894150}
   - 114: {fileID: 1638894148}
   - 114: {fileID: 1638894152}
   m_Layer: 9
@@ -2123,8 +2167,6 @@ MonoBehaviour:
   playerExplosionPrefab: {fileID: 141008, guid: 2221307bf1ae2475c91d62c1b1ff1b09,
     type: 2}
   playerShieldPrefab: {fileID: 103204, guid: 81a7743a8a6ad431db71d5a7bc1adae2, type: 2}
-  gameOverText: {fileID: 1092863429}
-  startButton: {fileID: 1330081383}
   gameOverAudioSource: {fileID: 1122536042}
   bounds:
     xMin: -8
@@ -2133,6 +2175,7 @@ MonoBehaviour:
     yMax: 13
   grid: {fileID: 1277793036}
   invinsible: 0
+  animator: {fileID: 0}
 --- !u!61 &1638894149
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2146,19 +2189,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1}
---- !u!114 &1638894150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1638894146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a2fad1fa07a24bae8bab54eb474a893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreTextController: {fileID: 1651443820}
-  livesTextController: {fileID: 1380733845}
 --- !u!95 &1638894151
 Animator:
   serializedVersion: 3

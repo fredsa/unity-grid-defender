@@ -26,13 +26,6 @@ public class CanvasTextController : MonoBehaviour
 		UpdateScore ();
 	}
 
-	public int IncrementValue (int value)
-	{
-		this.value += value;
-		UpdateScore ();
-		return this.value;
-	}
-
 	private void UpdateScore ()
 	{
 		valueText.text = string.Format (format, value);

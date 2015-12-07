@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
 	public GameObject playerCapsule;
 	public GameObject playerExplosionPrefab;
 	public GameObject playerShieldPrefab;
-	public GameObject gameOverText;
-	public GameObject startButton;
 	public AudioSource gameOverAudioSource;
 	public PlayerBounds bounds;
 	public Transform grid;
@@ -27,14 +25,17 @@ public class PlayerController : MonoBehaviour
 	public bool
 		invinsible;
 
+	[HideInInspector]
+	public Animator
+		animator;
+
 	private BonusController bonusController;
 	private GameObject playerShield;
 	private float fingerYOffset = 2f;
 	private float maxTrackSpeed = 40f;
 	private float keyboardSpeedScale = 20f;
 	private Plane playerPlane;
-	private Animator animator;
-	private int gameOverProperty = Animator.StringToHash ("Game Over");
+
 #if _DEBUG
 #else
 	private GameController gameController;
@@ -61,18 +62,6 @@ public class PlayerController : MonoBehaviour
 		transform.position = new Vector3(bounds.xMin - 3f, bounds.yMax - 3f, transform.position.z);
 #endif
 		animator = gameObject.GetComponent<Animator> ();
-	}
-
-	public void SetGameOver (bool gameOver)
-	{
-		if (gameOver) {
-			animator.SetBool (gameOverProperty, gameOver);
-			gameOverText.SetActive (gameOver);
-			startButton.SetActive (gameOver);
-			gameOverAudioSource.Play ();
-		} else {
-			Application.LoadLevel (0);
-		}
 	}
 
 	public void SetShieldActive (bool active)
@@ -113,14 +102,9 @@ public class PlayerController : MonoBehaviour
 		if (!invinsible && !playerShield.activeSelf) {
 			Instantiate (playerExplosionPrefab, transform.position, Quaternion.identity);
 			bonusController.SetBonus (0);
-#if _DEBUG
-#else
-			if (gameController.SubtractLife () == 0) {
-				SetGameOver (true);
-			} else {
-				animator.SetTrigger (playerDeathProperty);
-			}
-#endif
+			invinsible = true;
+			animator.SetTrigger (playerDeathProperty);
+			gameController.SubtractLife ();
 		}
 	}
 
