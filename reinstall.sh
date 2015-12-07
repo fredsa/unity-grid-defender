@@ -40,14 +40,27 @@ then
 fi
 
 
-# Begin actual un/re-install and launch
-echo
-echo "Uninstalling $pkg …"
-adb shell pm uninstall $pkg || true
+uninstall_pkg()
+{
+  echo
+  echo "Uninstalling $1 …"
+  adb shell pm uninstall $1 || true
+}
 
-echo
-echo "Installing $apk …"
-adb install -r -g $apk
+install_pkg()
+{
+  echo
+  echo "Installing $1 …"
+  adb install -r -g $1
+}
+
+# Begin actual un/re-install and launch
+
+install_pkg $apk ||
+(
+  uninstall_pkg $pkg \
+   && install_pkg $apk
+)
 
 echo
 echo "Launching $pkg/$activity …"
