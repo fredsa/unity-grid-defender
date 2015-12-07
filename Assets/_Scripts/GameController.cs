@@ -8,7 +8,9 @@ public class GameController : MonoBehaviour
 
 	public CanvasTextController scoreTextController;
 	public CanvasTextController livesTextController;
+	public CanvasTextController highScoreTextController;
 	public PlayerController playerController;
+	public GameObject gameOverPanel;
 	public GameObject gameOverText;
 	public Button startButton;
 	public AudioSource gameOverAudioSource;
@@ -37,7 +39,6 @@ public class GameController : MonoBehaviour
 
 	void Start ()
 	{
-		score = 0;
 		scoreTextController.SetValue (score);
 #if UNITY_EDITOR
 		lives = 2;
@@ -51,6 +52,7 @@ public class GameController : MonoBehaviour
 	IEnumerator GameLoop ()
 	{
 		playing = true;
+		gameOverPanel.SetActive (false);
 		while (playing) {
 			yield return null;
 		}
@@ -59,13 +61,23 @@ public class GameController : MonoBehaviour
 		yield return null;
 	}
 
+	void ReportFinalScore (int score)
+	{
+		int high_score = PlayerPrefs.GetInt ("high_score", 0);
+		if (score > high_score) {
+			high_score = score;
+			PlayerPrefs.SetInt ("high_score", high_score);
+		}
+		highScoreTextController.SetValue (high_score);
+	}
+
 	IEnumerator GameOver ()
 	{
 		startPressed = false;
 		playerController.animator.SetBool (gameOverProperty, true);
-		gameOverText.SetActive (true);
-		startButton.gameObject.SetActive (true);
+		gameOverPanel.SetActive (true);
 		gameOverAudioSource.Play ();
+		ReportFinalScore (score);
 		while (!startPressed) {
 			yield return null;
 		}
