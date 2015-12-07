@@ -51,7 +51,7 @@ install_pkg()
 {
   echo
   echo "Installing $1 …"
-  adb install -r -g $1
+  adb install -r -g --user 0 $1
 }
 
 # Begin actual un/re-install and launch
