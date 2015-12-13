@@ -3,6 +3,7 @@
 
 # Sublime
 *.sublime-workspace
+/obj/
 
 # MonoDevelop
 *.userprefs
